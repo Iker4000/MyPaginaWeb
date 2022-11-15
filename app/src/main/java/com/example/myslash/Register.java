@@ -123,6 +123,18 @@ public class Register extends AppCompatActivity {
                             file.write(textoJson);
                             file.close();
                             mensaje = "Usuario Registrado";
+                            Name.setText("");
+                            firstName.setText("");
+                            lastName.setText("");
+                            userName.setText("");
+                            Mail.setText("");
+                            Age.setText("");
+                            Number.setText("");
+                            Gender1.setChecked(false);
+                            Gender2.setChecked(false);
+                            Type1.setChecked(false);
+                            Type2.setChecked(false);
+                            Password.setText("");
                             BucleArchivo = false;
                         }
                     }
