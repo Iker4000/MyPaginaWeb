@@ -2,6 +2,7 @@ package com.example.myslash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,41 +19,42 @@ import java.util.List;
 public class ListMain extends AppCompatActivity {
 
     private ListView listView;
-    private List<String> list;
+    private List<Cuenta> list;
+    private int []imagen = { R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_main);
+
         listView = (ListView) findViewById(R.id.listViewId1);
-        list = new ArrayList<String>();
+        list = new ArrayList<Cuenta>();
 
-        boolean BucleArchivo = true;
-        int x = 1;
-        while (BucleArchivo) {
-            File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
-            if(Cfile.exists()) {
-                try {
-                    BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
-                    String lineaTexto = file.readLine();
-                    file.close();
+        for (int i = 0; i < 4; i++){
+            Cuenta cuenta = new Cuenta();
+            cuenta.setPassCuenta(String.format("Contraseña: %d",(int)(Math.random()*10000)));
 
-
-                    Json json = new Json();
-                    Info datos = json.leerJson(lineaTexto);
-
-                    list.add(String.format(datos.getUserName()));
-                    x = x + 1;
-
-                }catch(Exception e){
-                    BucleArchivo = false;
-                }
-            }else{
-                BucleArchivo = false;
+            if (i == 0){
+                cuenta.setNameCuenta(String.format( "AMDGMAAF"));
+                cuenta.setImage(imagen[0]);
             }
+            if (i == 1){
+                cuenta.setNameCuenta(String.format( "IOADK"));
+                cuenta.setImage(imagen[1]);
+            }
+            if (i == 2){
+                cuenta.setNameCuenta(String.format( "TDIH" ));
+                cuenta.setImage(imagen[2]);
+            }
+            if (i == 3){
+                cuenta.setNameCuenta(String.format( "TGWCT" ));
+                cuenta.setImage(imagen[3]);
+            }
+            list.add(cuenta);
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.activity_list_view_actividad,R.id.textViewId, list );
-        listView.setAdapter(arrayAdapter);
+
+        MyAdapter myAdapter = new MyAdapter(list, getBaseContext());
+        listView.setAdapter(myAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
@@ -64,6 +66,6 @@ public class ListMain extends AppCompatActivity {
 
     private void toast( int i )
     {
-        Toast.makeText(getBaseContext(), list.get(i), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), list.get(i).getPassCuenta(), Toast.LENGTH_SHORT).show();
     }
 }
