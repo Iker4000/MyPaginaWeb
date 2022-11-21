@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter implements Serializable {
+public class MyAdapterEdit extends BaseAdapter implements Serializable {
     private List<Cuenta> list;
     private Context context;
     private LayoutInflater layoutInflater;
     private int []imagenes = {R.drawable.editbutton,R.drawable.removebutton};
 
-    public MyAdapter(List<Cuenta> list, Context context) {
+    public MyAdapterEdit(List<Cuenta> list, Context context) {
         this.list = list;
         this.context = context;
         if( context != null)
@@ -55,12 +55,9 @@ public class MyAdapter extends BaseAdapter implements Serializable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        TextView textView = null;
         ImageView imageView = null;
-        view = layoutInflater.inflate(R.layout.activity_list_view_actividad, null );
-        textView = view.findViewById(R.id.textViewId);
-        imageView = view.findViewById(R.id.imageViewLUser);
-        textView.setText(list.get(i).getNameCuenta());
+        view = layoutInflater.inflate(R.layout.activity_list_view_actividad_editar, null );
+        imageView = view.findViewById(R.id.imageViewLE1);
         imageView.setImageResource(list.get(i).getImage());
 
         return view;

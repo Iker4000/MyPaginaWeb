@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="310dp"
     android:layout_height="match_parent">
 
     <ImageView
@@ -13,23 +13,9 @@
 
     <TextView
         android:id="@+id/textViewId"
-        android:layout_width="258dp"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:textColor="@color/black" />
-
-    <ImageView
-        android:id="@+id/imageViewLEdit"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/editbutton" />
-
-    <ImageView
-        android:id="@+id/imageViewLRemove"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/removebutton" />
 
 </LinearLayout>
