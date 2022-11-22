@@ -52,7 +52,9 @@ public class ListMain extends AppCompatActivity {
             Info datosU = json.leerJson(lineaTextoU);
             fileU.close();
 
-            textView.setText("Cuentas de " + datosU.getUserName());
+            Des myDes = new Des();
+
+            textView.setText("Cuentas de " + myDes.desCifrar(datosU.getUserName()));
 
             listView1 = (ListView) findViewById(R.id.listViewId1);
             list1 = new ArrayList<Cuenta>();
@@ -77,8 +79,8 @@ public class ListMain extends AppCompatActivity {
                     Cuenta cuenta1 = new Cuenta();
                     Cuenta cuenta2 = new Cuenta();
                     Cuenta cuenta3 = new Cuenta();
-                    cuenta1.setPassCuenta(datos.getPassCuenta());
-                    cuenta1.setNameCuenta(datos.getNameCuenta());
+                    cuenta1.setPassCuenta(myDes.desCifrar(datos.getPassCuenta()));
+                    cuenta1.setNameCuenta(myDes.desCifrar(datos.getNameCuenta()));
                     cuenta1.setImage(datos.getImage());
                     cuenta2.setImage(imagen[0]);
                     cuenta3.setImage(imagen[1]);

@@ -49,12 +49,14 @@ public class Login extends AppCompatActivity {
                     while (BucleArchivo) {
                         File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
                         if(Cfile.exists()) {
+                            Des myDes = new Des();
+
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             file.close();
 
                             Info datos = json.leerJson(lineaTexto);
-                            String Sha1Password2 = datos.getPassword();
+                            String Sha1Password2 = myDes.desCifrar(datos.getPassword());
 
                             if (Sha1Password1.equals(Sha1Password2)) {
                                 mensaje = "Usuario Encontrado";

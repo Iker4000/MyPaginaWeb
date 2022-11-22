@@ -32,7 +32,9 @@ public class Website extends AppCompatActivity {
             Info datos = json.leerJson(lineaTexto);
             file.close();
 
-            textview.setText("Welcome " + datos.getFirstName());
+            Des myDes = new Des();
+
+            textview.setText("Welcome " + myDes.desCifrar(datos.getFirstName()));
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
             new Handler( ).postDelayed(new Runnable() {
                 @Override

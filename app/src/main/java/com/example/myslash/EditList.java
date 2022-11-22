@@ -43,10 +43,12 @@ public class EditList extends AppCompatActivity {
                 String lineaTexto = file.readLine();
                 file.close();
 
+                Des myDes = new Des();
+
                 Json json = new Json();
                 Cuenta datos = json.leerJsonCuenta(lineaTexto);
-                String valorAccountName = datos.getNameCuenta();
-                String valorAccountPassword = datos.getPassCuenta();
+                String valorAccountName = myDes.desCifrar(datos.getNameCuenta());
+                String valorAccountPassword = myDes.desCifrar(datos.getPassCuenta());
                 int valorAccountImage = datos.getImage();
 
                 Name.setText(valorAccountName);
@@ -73,10 +75,11 @@ public class EditList extends AppCompatActivity {
                 Toast.makeText(EditList.this, mensaje, Toast.LENGTH_SHORT).show();
             }else {
                 Json json = new Json();
+                Des myDes = new Des();
                 if (numContext == 1) {
                     try{
-                        String valorNombre = Name.getText().toString();
-                        String valorPassword = Password.getText().toString();
+                        String valorNombre = myDes.cifrar(Name.getText().toString());
+                        String valorPassword = myDes.cifrar(Password.getText().toString());
                         int valorImage = imagenUser[0];
                         if(Opcion1.isChecked()){valorImage = imagenUser[0];}
                         if(Opcion2.isChecked()){valorImage = imagenUser[1];}
@@ -104,8 +107,8 @@ public class EditList extends AppCompatActivity {
                     try{
                         int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
 
-                        String valorNombre = Name.getText().toString();
-                        String valorPassword = Password.getText().toString();
+                        String valorNombre = myDes.cifrar(Name.getText().toString());
+                        String valorPassword = myDes.cifrar(Password.getText().toString());
                         int valorImage = imagenUser[0];
                         if(Opcion1.isChecked()){valorImage = imagenUser[0];}
                         if(Opcion2.isChecked()){valorImage = imagenUser[1];}

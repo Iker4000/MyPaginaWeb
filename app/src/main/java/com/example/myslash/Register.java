@@ -83,16 +83,18 @@ public class Register extends AppCompatActivity {
                     byte[] txtByte = digest.createSha1(userName.getText().toString() + Password.getText().toString());
                     String Sha1Password = digest.bytesToHex(txtByte);
 
-                    String ValorName = Name.getText().toString();
-                    String ValorfirstName = firstName.getText().toString();
-                    String ValorlastName = lastName.getText().toString();
-                    String ValoruserName = userName.getText().toString();
-                    String ValorMail = Mail.getText().toString();
+                    Des myDes = new Des();
+
+                    String ValorName = myDes.cifrar(Name.getText().toString());
+                    String ValorfirstName = myDes.cifrar(firstName.getText().toString());
+                    String ValorlastName = myDes.cifrar(lastName.getText().toString());
+                    String ValoruserName = myDes.cifrar(userName.getText().toString());
+                    String ValorMail = myDes.cifrar(Mail.getText().toString());
                     int ValorAge = Integer.parseInt(Age.getText().toString());
                     int ValorNumber = Integer.parseInt(Number.getText().toString());
                     boolean ValorGender = Gender1.isChecked();
                     boolean ValorType = Type1.isChecked();
-                    String ValorPassword = Sha1Password;
+                    String ValorPassword = myDes.cifrar(Sha1Password);
 
                     Json json = new Json();
                     String textoJson = json.crearJson(ValorName, ValorfirstName, ValorlastName, ValoruserName, ValorMail,
@@ -108,11 +110,13 @@ public class Register extends AppCompatActivity {
                             file.close();
 
                             Info datos = json.leerJson(lineaTexto);
-                            String ValoruserName2 = datos.getUserName();
-                            String ValorMail2 = datos.getMail();
+                            String ValoruserName2 = myDes.desCifrar(datos.getUserName());
+                            String ValorMail2 = myDes.desCifrar(datos.getMail());
+                            int ValorNumber2 = datos.getNumber();
 
-                            if (ValoruserName.equals(ValoruserName2) || ValorMail.equals(ValorMail2)) {
+                            if (ValoruserName.equals(ValoruserName2) || ValorMail.equals(ValorMail2) || ValorNumber == ValorNumber2) {
                                 if(ValorMail.equals(ValorMail2)){mensaje = "Correo Ya Registrado";}
+                                if(ValorNumber == ValorNumber2){mensaje = "Numero Ya Registrado";}
                                 if(ValoruserName.equals(ValoruserName2)){mensaje = "Usuario Ya Existente";}
                                 BucleArchivo = false;
                             } else {
