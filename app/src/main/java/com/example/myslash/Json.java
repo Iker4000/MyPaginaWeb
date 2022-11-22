@@ -42,29 +42,25 @@ public class Json extends AppCompatActivity{
         return datos;
     }
 
-    public String leerArchivo(String Sha1Password1, boolean Cfile, int x) {
-        try {
+    public static String crearJsonCuenta(String Name , String Password , int Image)
+    {
 
-            if(Cfile) {
-                BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
-                String lineaTexto = file.readLine();
-                file.close();
+        Cuenta datos = new Cuenta();
+        Gson gson = new Gson();
 
-                Json json = new Json();
-                Info datos = json.leerJson(lineaTexto);
-                String Sha1Password2 = datos.getPassword();
+        datos.setNameCuenta(Name);
+        datos.setPassCuenta(Password);
+        datos.setImage(Image);
 
-                if (Sha1Password1.equals(Sha1Password2)) {
-                    return "Usuario Encontrado";
-                } else {
-                    return "Siguiente";
-                }
-            }else{
-                return "Usuario no Encontrado";
-            }
+        String nuevojson = gson.toJson(datos);
 
-        } catch (Exception e) {
-            return "Error en el Archivo";
-        }
+        return nuevojson;
+    }
+
+    public static Cuenta leerJsonCuenta(String textoJson){
+        Gson gson = new Gson();
+        Cuenta datos = gson.fromJson(textoJson, Cuenta.class);
+
+        return datos;
     }
 }

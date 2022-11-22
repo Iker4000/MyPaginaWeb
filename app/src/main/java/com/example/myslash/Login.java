@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
 
                     if("Usuario Encontrado".equals(mensaje)){
                         Toast.makeText(Login.this, mensaje, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, ListMain.class);
+                        Intent intent = new Intent(Login.this, Website.class);
                         intent.putExtra("numArchivo", numArchivo);
                         startActivity(intent);
                     }

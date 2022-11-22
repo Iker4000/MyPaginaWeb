@@ -20,7 +20,6 @@ public class Website extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_website);
-
         textview = findViewById(R.id.textView);
 
         try {
@@ -39,6 +38,7 @@ public class Website extends AppCompatActivity {
                 @Override
                 public void run(){
                     Intent intent = new Intent( Website.this, ListMain.class);
+                    intent.putExtra("numArchivo", numArchivo);
                     startActivity( intent );
                 }
             } , 4000 );

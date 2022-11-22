@@ -18,8 +18,6 @@ import java.io.OutputStreamWriter;
 
 public class Register extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,15 +26,15 @@ public class Register extends AppCompatActivity {
 
     public void Registrarse (View v){
 
-        EditText Name = (EditText) findViewById(R.id.editTextRName);
-        EditText firstName = (EditText) findViewById(R.id.editTextRfirstName);
+        EditText Name = (EditText) findViewById(R.id.editTextELName);
+        EditText firstName = (EditText) findViewById(R.id.editTextElPassword);
         EditText lastName = (EditText) findViewById(R.id.editTextRlastName);
         EditText userName = (EditText) findViewById(R.id.editTextRuserName);
         EditText Mail = (EditText) findViewById(R.id.editTextRMail);
         EditText Age = (EditText) findViewById(R.id.editTextRAge);
         EditText Number = (EditText) findViewById(R.id.editTextRNumber);
-        RadioButton Gender1 = (RadioButton) findViewById(R.id.radioButtonRGender1);
-        RadioButton Gender2 = (RadioButton) findViewById(R.id.radioButtonRGender2);
+        RadioButton Gender1 = (RadioButton) findViewById(R.id.radioButtonEL1);
+        RadioButton Gender2 = (RadioButton) findViewById(R.id.radioButtonEL2);
         RadioButton Type1 = (RadioButton) findViewById(R.id.radioButtonRType1);
         RadioButton Type2 = (RadioButton) findViewById(R.id.radioButtonRType2);
         EditText Password = (EditText) findViewById(R.id.editTextRPassword);
@@ -111,9 +109,11 @@ public class Register extends AppCompatActivity {
 
                             Info datos = json.leerJson(lineaTexto);
                             String ValoruserName2 = datos.getUserName();
+                            String ValorMail2 = datos.getMail();
 
-                            if (ValoruserName.equals(ValoruserName2)) {
-                                mensaje = "Usuario Ya Existente";
+                            if (ValoruserName.equals(ValoruserName2) || ValorMail.equals(ValorMail2)) {
+                                if(ValorMail.equals(ValorMail2)){mensaje = "Correo Ya Registrado";}
+                                if(ValoruserName.equals(ValoruserName2)){mensaje = "Usuario Ya Existente";}
                                 BucleArchivo = false;
                             } else {
                                 x = x + 1;

@@ -31,4 +31,16 @@
     <string name="forgotPassword">Olvidé mi contraseña</string>
     <string name="recoverPassword">Recuperar contraseña</string>
     <string name="welcome">Welcome to the Jungle</string>
+    <string name="menu_nuevo">Nuevo</string>
+    <string name="menu_copiar">Cerrar Sesión</string>
+    <string name="list_name">Nombre de la Cuenta</string>
+    <string name="list_nameHint">Escribir el Nombre</string>
+    <string name="list_pass">Contraseña de la Cuenta</string>
+    <string name="list_passHint">Escribir la Contraseña</string>
+    <string name="list_image">Seleccione la Imagen Preferida</string>
+    <string name="list_image1">Default</string>
+    <string name="list_image2">Opcion 1</string>
+    <string name="list_image3">Opcion 2</string>
+    <string name="list_image4">Opcion 3</string>
+    <string name="list_button">Enviar</string>
 </resources>

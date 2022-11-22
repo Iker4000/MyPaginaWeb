@@ -6,7 +6,6 @@ public class Cuenta implements Serializable{
     private String nameCuenta;
     private String passCuenta;
     private int image;
-    private String red;
 
     public Cuenta(){
 
@@ -34,13 +33,5 @@ public class Cuenta implements Serializable{
 
     public void setImage(int image) {
         this.image = image;
-    }
-
-    public String getRed() {
-        return red;
-    }
-
-    public void setRed(String red) {
-        this.red = red;
     }
 }

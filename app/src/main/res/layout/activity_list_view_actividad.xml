@@ -16,6 +16,6 @@
         android:layout_width="260dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
 </LinearLayout>
