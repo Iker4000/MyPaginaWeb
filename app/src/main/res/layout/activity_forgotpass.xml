@@ -41,12 +41,12 @@
         android:onClick="RecuperarContraseña"
         android:text="@string/recoverPassword"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextISPassword2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFPMail"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
     <EditText
-        android:id="@+id/editTextISPassword2"
+        android:id="@+id/editTextFPMail"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
@@ -55,7 +55,7 @@
         android:contextClickable="true"
         android:ems="10"
         android:hint="@string/writeMail"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#9F9F9F"
@@ -72,10 +72,10 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextISuserName2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextFPName" />
 
     <EditText
-        android:id="@+id/editTextISuserName2"
+        android:id="@+id/editTextFPName"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
