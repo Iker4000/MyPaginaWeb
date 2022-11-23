@@ -44,10 +44,15 @@ public class EditList extends AppCompatActivity {
                 int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
                 BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + "." + numArchivoCuenta + ".txt")));
                 String lineaTexto = file.readLine();
+                String completoTexto = "";
+                while(lineaTexto != null){
+                    completoTexto = completoTexto + lineaTexto;
+                    lineaTexto = file.readLine();
+                }
                 file.close();
 
                 Json json = new Json();
-                Cuenta datos = json.leerJsonCuenta(lineaTexto);
+                Cuenta datos = json.leerJsonCuenta(completoTexto);
                 String valorAccountName = datos.getNameCuenta();
                 String valorAccountPassword = datos.getPassCuenta();
                 int valorAccountImage = datos.getImage();

@@ -109,9 +109,14 @@ public class Register extends AppCompatActivity {
                         if (Cfile.exists()) {
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
                             String lineaTexto = file.readLine();
+                            String completoTexto = "";
+                            while(lineaTexto != null){
+                                completoTexto = completoTexto + lineaTexto;
+                                lineaTexto = file.readLine();
+                            }
                             file.close();
 
-                            Info datos = json.leerJson(lineaTexto);
+                            Info datos = json.leerJson(completoTexto);
                             String ValoruserName2 = datos.getUserName();
                             String ValorMail2 = datos.getMail();
                             int ValorNumber2 = datos.getNumber();

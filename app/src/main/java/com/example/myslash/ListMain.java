@@ -56,7 +56,12 @@ public class ListMain extends AppCompatActivity {
         try {
             BufferedReader fileU = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + ".txt")));
             String lineaTextoU = fileU.readLine();
-            Info datosU = json.leerJson(lineaTextoU);
+            String completoTextoU = "";
+            while(lineaTextoU != null){
+                completoTextoU = completoTextoU + lineaTextoU;
+                lineaTextoU = fileU.readLine();
+            }
+            Info datosU = json.leerJson(completoTextoU);
             fileU.close();
 
             textView.setText("Cuentas de " + datosU.getUserName());
@@ -77,9 +82,14 @@ public class ListMain extends AppCompatActivity {
                 if(Cfile.exists()) {
                     BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + "." + x + ".txt")));
                     String lineaTexto = file.readLine();
+                    String completoTexto = "";
+                    while(lineaTexto != null){
+                        completoTexto = completoTexto + lineaTexto;
+                        lineaTexto = file.readLine();
+                    }
                     file.close();
 
-                    Cuenta datos = json.leerJsonCuenta(lineaTexto);
+                    Cuenta datos = json.leerJsonCuenta(completoTexto);
 
                     Cuenta cuenta1 = new Cuenta();
                     Cuenta cuenta2 = new Cuenta();
@@ -159,10 +169,15 @@ public class ListMain extends AppCompatActivity {
                     int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
                     BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + "." + (x + 1) + ".txt")));
                     String lineaTexto = file.readLine();
+                    String completoTexto = "";
+                    while(lineaTexto != null){
+                        completoTexto = completoTexto + lineaTexto;
+                        lineaTexto = file.readLine();
+                    }
                     file.close();
 
                     BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("Archivo" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
-                    fileC.write(lineaTexto);
+                    fileC.write(completoTexto);
                     fileC.close();
 
                     x = x + 1;

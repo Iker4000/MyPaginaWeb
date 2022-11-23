@@ -55,9 +55,14 @@ public class Login extends AppCompatActivity {
                         if(Cfile.exists()) {
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
                             String lineaTexto = file.readLine();
+                            String completoTexto = "";
+                            while(lineaTexto != null){
+                                completoTexto = completoTexto + lineaTexto;
+                                lineaTexto = file.readLine();
+                            }
                             file.close();
 
-                            Info datos = json.leerJson(lineaTexto);
+                            Info datos = json.leerJson(completoTexto);
                             String Sha1Password2 = datos.getPassword();
 
                             if (Sha1Password1.equals(Sha1Password2)) {

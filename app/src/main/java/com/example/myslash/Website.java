@@ -31,7 +31,12 @@ public class Website extends AppCompatActivity {
 
             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + ".txt")));
             String lineaTexto = file.readLine();
-            Info datos = json.leerJson(lineaTexto);
+            String completoTexto = "";
+            while(lineaTexto != null){
+                completoTexto = completoTexto + lineaTexto;
+                lineaTexto = file.readLine();
+            }
+            Info datos = json.leerJson(completoTexto);
             file.close();
 
             textview.setText("Welcome " + datos.getFirstName());

@@ -83,9 +83,14 @@ public class Forgotpass extends AppCompatActivity {
                         if(Cfile.exists()) {
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
                             String lineaTexto = file.readLine();
+                            String completoTexto = "";
+                            while(lineaTexto != null){
+                                completoTexto = completoTexto + lineaTexto;
+                                lineaTexto = file.readLine();
+                            }
                             file.close();
 
-                            Info datos = json.leerJson(lineaTexto);
+                            Info datos = json.leerJson(completoTexto);
                             String valorName = datos.getUserName();
                             String valorMail = datos.getMail();
 
