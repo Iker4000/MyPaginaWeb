@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.example.myslash.Json.Info;
+import com.example.myslash.Json.Json;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,9 +34,7 @@ public class Website extends AppCompatActivity {
             Info datos = json.leerJson(lineaTexto);
             file.close();
 
-            Des myDes = new Des();
-
-            textview.setText("Welcome " + myDes.desCifrar(datos.getFirstName()));
+            textview.setText("Welcome " + datos.getFirstName());
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);
             new Handler( ).postDelayed(new Runnable() {
                 @Override

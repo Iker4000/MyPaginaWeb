@@ -1,4 +1,4 @@
-package com.example.myslash;
+package com.example.myslash.Json;
 
 public class Info {
 

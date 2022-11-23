@@ -1,14 +1,16 @@
-package com.example.myslash;
+package com.example.myslash.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ListViewActividadEditar extends AppCompatActivity {
+import com.example.myslash.R;
+
+public class ListViewActividadBorrar extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view_actividad_editar);
+        setContentView(R.layout.activity_list_view_actividad_borrar);
     }
 }

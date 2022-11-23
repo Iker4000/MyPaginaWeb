@@ -17,16 +17,16 @@
             android:name=".EditList"
             android:exported="false" />
         <activity
-            android:name=".ListViewActividadBorrar"
+            android:name=".List.ListViewActividadBorrar"
             android:exported="false" />
         <activity
-            android:name=".ListViewActividadEditar"
+            android:name=".List.ListViewActividadEditar"
             android:exported="false" />
         <activity
             android:name=".ListMain"
             android:exported="false" />
         <activity
-            android:name=".ListViewActividad"
+            android:name=".List.ListViewActividad"
             android:exported="false" />
         <activity
             android:name=".Website"

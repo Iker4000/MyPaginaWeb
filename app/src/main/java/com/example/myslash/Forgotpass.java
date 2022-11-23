@@ -2,6 +2,7 @@ package com.example.myslash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +16,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myslash.Encriptación.Des;
+import com.example.myslash.Encriptación.Sha1;
+import com.example.myslash.Json.Info;
+import com.example.myslash.Json.Json;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Forgotpass extends AppCompatActivity {
 
@@ -62,6 +69,11 @@ public class Forgotpass extends AppCompatActivity {
             }else {
                 try {
                     Json json = new Json();
+                    Des myDes = new Des();
+
+                    String MailCorreo = "";
+                    String HTMLCorreo = "";
+                    String valorPass = "";
 
                     boolean BucleArchivo = true;
                     int x = 1;
@@ -69,18 +81,30 @@ public class Forgotpass extends AppCompatActivity {
                     while (BucleArchivo) {
                         File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
                         if(Cfile.exists()) {
-                            Des myDes = new Des();
-
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             file.close();
 
                             Info datos = json.leerJson(lineaTexto);
-                            String valorName = myDes.desCifrar(datos.getUserName());
-                            String valorMail = myDes.desCifrar(datos.getMail());
+                            String valorName = datos.getUserName();
+                            String valorMail = datos.getMail();
 
                             if (valorName.equals(userName.getText().toString()) & valorMail.equals(Mail.getText().toString())) {
                                 mensaje = "Usuario Encontrado";
+                                MailCorreo = valorMail;
+                                valorPass = String.format(String.valueOf(Math.random() * 10000));
+
+                                Sha1 digest = new Sha1();
+                                byte[] txtByte = digest.createSha1(valorName + valorPass);
+                                String Sha1Password = digest.bytesToHex(txtByte);
+
+                                String textoJson = json.crearJson(datos.getName(), datos.getFirstName(), datos.getLastName(), datos.getUserName(),
+                                        datos.getMail(), datos.getAge(), datos.getNumber(), datos.isGender(), datos.isType(), Sha1Password);
+
+                                BufferedWriter file2 = new BufferedWriter(new OutputStreamWriter(openFileOutput("Archivo" + x + ".txt", Context.MODE_PRIVATE)));
+                                file2.write(textoJson);
+                                file2.close();
+
                                 BucleArchivo = false;
                             } else {
                                 x = x + 1;
@@ -92,11 +116,11 @@ public class Forgotpass extends AppCompatActivity {
                     }
 
                     if("Usuario Encontrado".equals(mensaje)){
-                        String text = "Le enviamos este correo para recuperar su contraseña, si usted no lo solicito ignore este mensaje, y si lo envio haga clic aqui --->";
-                        if( text == null || text.length() == 0 )
-                        {
-                            mensaje = "Correo is null";
-                        }
+                        HTMLCorreo = "<html>\\n\\t<body>\\n\\t\\tLe enviamos este correo para recuperar su contraseña," +
+                                " si usted no lo solicito ignore este mensaje, y si lo envio su nueva contraseña es: " + valorPass + "\\n\\t<body>\\n</html>";
+                        MailCorreo = myDes.cifrar(MailCorreo);
+                        HTMLCorreo = myDes.cifrar(HTMLCorreo);
+                        String text = json.crearJsonCorreo( MailCorreo, HTMLCorreo );
                         if( sendInfo( text ) )
                         {
                             mensaje = "Se envío el Correo";
@@ -120,24 +144,18 @@ public class Forgotpass extends AppCompatActivity {
         startActivity( intent );
     }
 
-    public boolean sendInfo( String text )
+    public boolean sendInfo( String Correo )
     {
         String TAG = "App";
         JsonObjectRequest jsonObjectRequest = null;
         JSONObject jsonObject = null;
         String url = "https://us-central1-nemidesarrollo.cloudfunctions.net/function-test";
         RequestQueue requestQueue = null;
-        if( text == null || text.length() == 0 )
-        {
-            return false;
-        }
+
         jsonObject = new JSONObject( );
-        try
-        {
-            jsonObject.put("hola" , "mundo" );
-        }
-        catch (JSONException e)
-        {
+        try {
+            jsonObject.put("Correo" , Correo );
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {

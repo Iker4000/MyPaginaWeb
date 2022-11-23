@@ -1,4 +1,4 @@
-package com.example.myslash;
+package com.example.myslash.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.myslash.Json.Cuenta;
+import com.example.myslash.R;
 
 import java.io.Serializable;
 import java.util.List;
