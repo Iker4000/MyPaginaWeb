@@ -75,10 +75,10 @@ public class Register extends AppCompatActivity {
                 if(firstName.length() > 15){mensaje = "Apellido Paterno Muy Largo";}
                 if(lastName.length() > 15){mensaje = "Apellido Materno Muy Largo";}
                 if(userName.length() > 20){mensaje = "Nombre de Usuario Muy Largo";}
-                if(TipoCorreo == false){mensaje = "Correo Invalido";}
+                if(TipoCorreo == false){mensaje = "Correo Invalido, Intente con los dominios @gmail.com, @hotmail.com, @outlook.com";}
                 if(Mail.length() > 25){mensaje = "Correo Muy Largo";}
-                if(Age.length() > 2){mensaje = "Edad Invalida";}
-                if(Number.length() != 8){mensaje = "Numero Invalido";}
+                if(Age.length() > 2){mensaje = "Edad Invalida, Intente con una edad mas corta";}
+                if(Number.length() != 8){mensaje = "Numero Invalido, Intente con un numero de 8 digitos";}
                 if(Password.length() > 30){mensaje = "Contraseña Muy Larga";}
             }else{
                 try {
