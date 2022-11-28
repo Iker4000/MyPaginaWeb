@@ -54,7 +54,7 @@ public class ListMain extends AppCompatActivity {
         Json json = new Json();
 
         try {
-            BufferedReader fileU = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + ".txt")));
+            BufferedReader fileU = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + ".txt")));
             String lineaTextoU = fileU.readLine();
             String completoTextoU = "";
             while(lineaTextoU != null){
@@ -78,9 +78,9 @@ public class ListMain extends AppCompatActivity {
             boolean BucleArchivo = true;
             int x = 1;
             while (BucleArchivo) {
-                File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + numArchivo + "." + x + ".txt");
+                File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
                 if(Cfile.exists()) {
-                    BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + "." + x + ".txt")));
+                    BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt")));
                     String lineaTexto = file.readLine();
                     String completoTexto = "";
                     while(lineaTexto != null){
@@ -163,11 +163,11 @@ public class ListMain extends AppCompatActivity {
             boolean BucleArchivo = true;
             int x = (i + 1);
             while (BucleArchivo) {
-                File Cfile1 = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + numArchivo + "." + x + ".txt");
-                File Cfile2 = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + numArchivo + "." + (x + 1) + ".txt");
+                File Cfile1 = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
+                File Cfile2 = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + (x + 1) + ".txt");
                 if (Cfile1.exists() & Cfile2.exists()) {
                     int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
-                    BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + numArchivo + "." + (x + 1) + ".txt")));
+                    BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + (x + 1) + ".txt")));
                     String lineaTexto = file.readLine();
                     String completoTexto = "";
                     while(lineaTexto != null){
@@ -176,14 +176,14 @@ public class ListMain extends AppCompatActivity {
                     }
                     file.close();
 
-                    BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("Archivo" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
+                    BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
                     fileC.write(completoTexto);
                     fileC.close();
 
                     x = x + 1;
                 }
                 if (Cfile1.exists() & !Cfile2.exists()) {
-                    File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + numArchivo + "." + x + ".txt");
+                    File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
                     Cfile.delete();
                     Intent intent = new Intent (ListMain.this, ListMain.class);
                     intent.putExtra("numArchivo", numArchivo);

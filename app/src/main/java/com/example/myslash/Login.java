@@ -51,9 +51,9 @@ public class Login extends AppCompatActivity {
                     int x = 1;
                     int numArchivo = 0;
                     while (BucleArchivo) {
-                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
+                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
                         if(Cfile.exists()) {
-                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
+                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             String completoTexto = "";
                             while(lineaTexto != null){

@@ -105,9 +105,9 @@ public class Register extends AppCompatActivity {
                     boolean BucleArchivo = true;
                     int x = 1;
                     while (BucleArchivo) {
-                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "Archivo" + x + ".txt");
+                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
                         if (Cfile.exists()) {
-                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("Archivo" + x + ".txt")));
+                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             String completoTexto = "";
                             while(lineaTexto != null){
@@ -130,7 +130,7 @@ public class Register extends AppCompatActivity {
                                 x = x + 1;
                             }
                         } else {
-                            BufferedWriter file = new BufferedWriter(new OutputStreamWriter(openFileOutput("Archivo" + x + ".txt", Context.MODE_PRIVATE)));
+                            BufferedWriter file = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + x + ".txt", Context.MODE_PRIVATE)));
                             file.write(textoJson);
                             file.close();
                             mensaje = "Usuario Registrado";

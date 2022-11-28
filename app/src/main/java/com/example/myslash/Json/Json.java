@@ -57,16 +57,4 @@ public class Json extends AppCompatActivity{
 
         return datos;
     }
-
-    public static String crearJsonCorreo(String Mail , String HTML) {
-        Correo datos = new Correo();
-        Gson gson = new Gson();
-
-        datos.setMailCorreo(Mail);
-        datos.setHTMLCorreo(HTML);
-
-        String nuevojson = gson.toJson(datos);
-
-        return nuevojson;
-    }
 }
