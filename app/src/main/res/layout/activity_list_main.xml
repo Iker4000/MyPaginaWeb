@@ -9,7 +9,7 @@
 
     <ListView
         android:id="@+id/listViewId1"
-        android:layout_width="310dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/listViewId1"
+        app:layout_constraintEnd_toStartOf="@+id/listViewId3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
@@ -31,7 +31,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/listViewId2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
