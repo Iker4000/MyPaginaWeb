@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
+import com.example.myslash.MySQLite.DbInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,6 +30,7 @@ public class Website extends AppCompatActivity {
             int numArchivo = getIntent().getExtras().getInt("numArchivo");
             Json json = new Json();
 
+            /*
             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + ".txt")));
             String lineaTexto = file.readLine();
             String completoTexto = "";
@@ -38,6 +40,10 @@ public class Website extends AppCompatActivity {
             }
             Info datos = json.leerJson(completoTexto);
             file.close();
+             */
+            DbInfo dbInfo = new DbInfo(Website.this);
+            String completoTexto = dbInfo.verInfo(numArchivo);
+            Info datos = json.leerJson(completoTexto);
 
             textview.setText("Welcome " + datos.getFirstName());
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN);

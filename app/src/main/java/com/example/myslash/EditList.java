@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.myslash.Json.Cuenta;
 import com.example.myslash.Json.Json;
+import com.example.myslash.MySQLite.DbCuenta;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,6 +43,7 @@ public class EditList extends AppCompatActivity {
         try {
             if (numContext == 2) {
                 int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
+                /*
                 BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + numArchivoCuenta + ".txt")));
                 String lineaTexto = file.readLine();
                 String completoTexto = "";
@@ -50,6 +52,9 @@ public class EditList extends AppCompatActivity {
                     lineaTexto = file.readLine();
                 }
                 file.close();
+                 */
+                DbCuenta dbCuenta = new DbCuenta(EditList.this);
+                String completoTexto = dbCuenta.verCuenta(numArchivo, numArchivoCuenta);
 
                 Json json = new Json();
                 Cuenta datos = json.leerJsonCuenta(completoTexto);
@@ -81,6 +86,7 @@ public class EditList extends AppCompatActivity {
                 Toast.makeText(EditList.this, mensaje, Toast.LENGTH_SHORT).show();
             }else {
                 Json json = new Json();
+                DbCuenta dbCuenta = new DbCuenta(EditList.this);
                 if (numContext == 1) {
                     try{
                         String valorNombre = Name.getText().toString();
@@ -96,12 +102,16 @@ public class EditList extends AppCompatActivity {
                         boolean BucleArchivo = true;
                         int x = 1;
                         while (BucleArchivo) {
-                            File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
-                            if (Cfile.exists()) {x = x + 1;}
+                            //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
+                            //if (Cfile.exists()) {x = x + 1;}
+                            if(dbCuenta.comprobarCuenta(numArchivo, x)){x = x + 1;}
                             else {
+                                /*
                                 BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
                                 fileC.write(textoJsonCuenta);
                                 fileC.close();
+                                 */
+                                dbCuenta.insertarCuenta(numArchivo, x, textoJsonCuenta);
 
                                 BucleArchivo = false;
                             }
@@ -122,9 +132,12 @@ public class EditList extends AppCompatActivity {
 
                         String textoJsonCuenta = json.crearJsonCuenta( valorNombre, valorPassword, valorImage);
 
+                        /*
                         BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + numArchivoCuenta + ".txt", Context.MODE_PRIVATE)));
                         fileC.write(textoJsonCuenta);
                         fileC.close();
+                         */
+                        dbCuenta.editarCuenta(numArchivo, numArchivoCuenta, textoJsonCuenta);
                     }catch(Exception e){}
                 }
                 Intent intent = new Intent(EditList.this, ListMain.class);

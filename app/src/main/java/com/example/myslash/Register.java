@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.myslash.Encriptación.Sha1;
 import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
+import com.example.myslash.MySQLite.DbInfo;
+import com.example.myslash.MySQLite.DbMyPaginaWeb;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -69,7 +71,7 @@ public class Register extends AppCompatActivity {
                 }
             }
             if(Name.length() > 22 || firstName.length() > 15 || lastName.length() > 15 || userName.length() > 20 ||
-            TipoCorreo == false || Mail.length() > 25 || Age.length() > 2 || Number.length() != 8 || Password.length() > 30){
+                    TipoCorreo == false || Mail.length() > 25 || Age.length() > 2 || Number.length() != 8 || Password.length() > 30){
                 mensaje = "Parametro Erroneo";
                 if(Name.length() > 22){mensaje = "Nombre Muy Largo";}
                 if(firstName.length() > 15){mensaje = "Apellido Paterno Muy Largo";}
@@ -105,8 +107,11 @@ public class Register extends AppCompatActivity {
                     boolean BucleArchivo = true;
                     int x = 1;
                     while (BucleArchivo) {
-                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
-                        if (Cfile.exists()) {
+                        //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
+                        DbInfo dbInfo = new DbInfo(Register.this);
+                        //if(Cfile.exists()) {
+                        if (dbInfo.comprobarInfo(x)) {
+                            /*
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             String completoTexto = "";
@@ -115,6 +120,8 @@ public class Register extends AppCompatActivity {
                                 lineaTexto = file.readLine();
                             }
                             file.close();
+                             */
+                            String completoTexto = dbInfo.verInfo(x);
 
                             Info datos = json.leerJson(completoTexto);
                             String ValoruserName2 = datos.getUserName();
@@ -130,9 +137,11 @@ public class Register extends AppCompatActivity {
                                 x = x + 1;
                             }
                         } else {
+                            /*
                             BufferedWriter file = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + x + ".txt", Context.MODE_PRIVATE)));
                             file.write(textoJson);
                             file.close();
+
                             mensaje = "Usuario Registrado";
                             Name.setText("");
                             firstName.setText("");
@@ -147,6 +156,26 @@ public class Register extends AppCompatActivity {
                             Type2.setChecked(false);
                             Password.setText("");
                             BucleArchivo = false;
+                             */
+                            long status = dbInfo.insertarInfo(x, textoJson);
+                            if (status > 0) {
+                                mensaje = "Usuario Registrado";
+                                Name.setText("");
+                                firstName.setText("");
+                                lastName.setText("");
+                                userName.setText("");
+                                Mail.setText("");
+                                Age.setText("");
+                                Number.setText("");
+                                Gender1.setChecked(false);
+                                Gender2.setChecked(false);
+                                Type1.setChecked(false);
+                                Type2.setChecked(false);
+                                Password.setText("");
+                                BucleArchivo = false;
+                            } else {
+                                mensaje = "Error al Hacer Registro";
+                            }
                         }
                     }
 

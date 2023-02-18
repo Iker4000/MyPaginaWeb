@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.myslash.Encriptación.Sha1;
 import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
+import com.example.myslash.MySQLite.DbInfo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,8 +52,11 @@ public class Login extends AppCompatActivity {
                     int x = 1;
                     int numArchivo = 0;
                     while (BucleArchivo) {
-                        File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
-                        if(Cfile.exists()) {
+                        //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
+                        DbInfo dbInfo = new DbInfo(Login.this);
+                        //if(Cfile.exists()) {
+                        if (dbInfo.comprobarInfo(x)) {
+                            /*
                             BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
                             String lineaTexto = file.readLine();
                             String completoTexto = "";
@@ -61,6 +65,8 @@ public class Login extends AppCompatActivity {
                                 lineaTexto = file.readLine();
                             }
                             file.close();
+                             */
+                            String completoTexto = dbInfo.verInfo(x);
 
                             Info datos = json.leerJson(completoTexto);
                             String Sha1Password2 = datos.getPassword();

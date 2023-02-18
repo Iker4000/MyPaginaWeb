@@ -21,6 +21,8 @@ import com.example.myslash.Json.Json;
 import com.example.myslash.List.MyAdapter;
 import com.example.myslash.List.MyAdapterEdit;
 import com.example.myslash.List.MyAdapterRemove;
+import com.example.myslash.MySQLite.DbCuenta;
+import com.example.myslash.MySQLite.DbInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -54,6 +56,7 @@ public class ListMain extends AppCompatActivity {
         Json json = new Json();
 
         try {
+            /*
             BufferedReader fileU = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + ".txt")));
             String lineaTextoU = fileU.readLine();
             String completoTextoU = "";
@@ -63,6 +66,10 @@ public class ListMain extends AppCompatActivity {
             }
             Info datosU = json.leerJson(completoTextoU);
             fileU.close();
+             */
+            DbInfo dbInfo = new DbInfo(ListMain.this);
+            String completoTextoU = dbInfo.verInfo(numArchivo);
+            Info datosU = json.leerJson(completoTextoU);
 
             textView.setText("Cuentas de " + datosU.getUserName());
 
@@ -78,8 +85,11 @@ public class ListMain extends AppCompatActivity {
             boolean BucleArchivo = true;
             int x = 1;
             while (BucleArchivo) {
-                File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
-                if(Cfile.exists()) {
+                //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
+                DbCuenta dbCuenta = new DbCuenta(ListMain.this);
+                //if(Cfile.exists()) {
+                if(dbCuenta.comprobarCuenta(numArchivo, x)){
+                    /*
                     BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt")));
                     String lineaTexto = file.readLine();
                     String completoTexto = "";
@@ -88,6 +98,8 @@ public class ListMain extends AppCompatActivity {
                         lineaTexto = file.readLine();
                     }
                     file.close();
+                     */
+                    String completoTexto = dbCuenta.verCuenta(numArchivo, x);
 
                     Cuenta datos = json.leerJsonCuenta(completoTexto);
 
@@ -163,10 +175,15 @@ public class ListMain extends AppCompatActivity {
             boolean BucleArchivo = true;
             int x = (i + 1);
             while (BucleArchivo) {
+                /*
                 File Cfile1 = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
                 File Cfile2 = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + (x + 1) + ".txt");
                 if (Cfile1.exists() & Cfile2.exists()) {
+                 */
+                DbCuenta dbCuenta = new DbCuenta(ListMain.this);
+                if (dbCuenta.comprobarCuenta(numArchivo, x) & dbCuenta.comprobarCuenta(numArchivo, (x + 1))){
                     int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
+                    /*
                     BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + (x + 1) + ".txt")));
                     String lineaTexto = file.readLine();
                     String completoTexto = "";
@@ -179,12 +196,20 @@ public class ListMain extends AppCompatActivity {
                     BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
                     fileC.write(completoTexto);
                     fileC.close();
+                     */
+                    String completoTexto = dbCuenta.verCuenta(numArchivo, (x + 1));
+                    dbCuenta.editarCuenta(numArchivo, x, completoTexto);
 
                     x = x + 1;
                 }
-                if (Cfile1.exists() & !Cfile2.exists()) {
+                //if (Cfile1.exists() & !Cfile2.exists()) {
+                if (dbCuenta.comprobarCuenta(numArchivo, x) & !dbCuenta.comprobarCuenta(numArchivo, (x + 1))){
+                    /*
                     File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
                     Cfile.delete();
+                     */
+                    dbCuenta.eliminarCuenta(numArchivo, x);
+
                     Intent intent = new Intent (ListMain.this, ListMain.class);
                     intent.putExtra("numArchivo", numArchivo);
                     startActivity( intent );
