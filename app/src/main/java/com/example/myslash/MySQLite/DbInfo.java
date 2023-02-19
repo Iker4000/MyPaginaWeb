@@ -83,7 +83,7 @@ public class DbInfo extends DbMyPaginaWeb{
         SQLiteDatabase db = dbPagina.getWritableDatabase();
 
         try {
-            db.execSQL("UPDATE " + TABLE_INFO + " SET textoC = '" + textoC + "' WHERE id = " + id + "' ");
+            db.execSQL("UPDATE " + TABLE_INFO + " SET textoC = '" + textoC + "' WHERE id = " + id + "");
             correcto = true;
         } catch (Exception ex) {
             ex.toString();

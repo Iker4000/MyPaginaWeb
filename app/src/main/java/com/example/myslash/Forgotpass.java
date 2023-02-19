@@ -44,6 +44,7 @@ public class Forgotpass extends AppCompatActivity {
         EditText Mail = (EditText) findViewById(R.id.editTextFPMail);
 
         String mensaje = "";
+        String DominioCorreo = "";
 
         if("".equals(userName.getText().toString()) || "".equals(Mail.getText().toString()))
         {
@@ -57,6 +58,9 @@ public class Forgotpass extends AppCompatActivity {
                         Correo = Correo + Mail.getText().charAt(y);
                     }
                     if("@gmail.com".equals(Correo) || "@hotmail.com".equals(Correo) || "@outlook.com".equals(Correo)){
+                        if("@gmail.com".equals(Correo)){DominioCorreo = "Gmail";}
+                        if("@hotmail.com".equals(Correo)){DominioCorreo = "Hotmail";}
+                        if("@outlook.com".equals(Correo)){DominioCorreo = "Outlook";}
                         TipoCorreo = true;
                     }
                     break;
@@ -74,6 +78,7 @@ public class Forgotpass extends AppCompatActivity {
 
                     String MailCorreo = "";
                     String HTMLCorreo = "";
+                    String nombreUsuario = "";
                     String valorPass = "";
 
                     boolean BucleArchivo = true;
@@ -103,6 +108,7 @@ public class Forgotpass extends AppCompatActivity {
                             if (valorName.equals(userName.getText().toString()) & valorMail.equals(Mail.getText().toString())) {
                                 mensaje = "Usuario Encontrado";
                                 MailCorreo = valorMail;
+                                nombreUsuario = valorName;
                                 valorPass = String.format(String.valueOf(Math.random() * 10000));
 
                                 String TAG = "MyPaginaWeb";
@@ -133,8 +139,7 @@ public class Forgotpass extends AppCompatActivity {
                     }
 
                     if("Usuario Encontrado".equals(mensaje)){
-                        HTMLCorreo = "<html><body>Le enviamos este correo para recuperar su contraseña," +
-                                " si usted no lo solicito ignore este mensaje, y si lo envio su nueva contraseña es: " + valorPass + "</body></html>";
+                        HTMLCorreo = "<html><head><title> Correo Olvidar Contraseña </title></head><style>.div-1 {background-color: #2d2c35;}.div-2 {margin: 20px;border: 3px solid;background-color: #39383f;}</style><body><div class=\"div-1\"><table width=\"100%\" height=\"146\" border=\"0\"><tr><td width=\"31%\" height=\"142\"><div align=\"center\"><img src=\"ipn.png\" width=\"94\" height=\"130\"/></div></td><td width=\"41%\"><div align=\"center\"><p><Font color=black>INSTITUTO POLITECNICO NACIONAL</font></p><p><Font color=black>CENTRO DE ESTUDIOS CIENTIFICOS Y TECNOLOGICOS No.9</font></p><p><Font color=black>ANDROID STUDIO 2</font></p><p><Font color=black>MY PAGINA WEB</font></p></div></td><td width=\"28%\"><div align=\"center\"><img src=\"batiz.png\" width=\"141\" height=\"134\"/></div></td></tr></table><div class=\"div-2\"><P align=left><Font size=8 color=black Face=Arial> Hola, " + nombreUsuario + " </font></p><P align=justify><Font size=8 color=black Face=Arial> Hemos recibido una solicitud para acceder a tu cuenta de " + DominioCorreo + ", " + MailCorreo + ", a través de tu dirección de correo electronico. Tu código de verificación de  " + DominioCorreo + " es:</font></p><Hr><br><P align=center><Font size=12 color=black Face=Arial><strong> " + valorPass + " </strong></font></p><br><Hr><P align=justify><Font size=8 color=black Face=Arial> Si no has solicitado este código, puede que alguien esté intentando acceder a la cuenta de " + DominioCorreo + " " + MailCorreo + ". <strong>No reenvíes este correo electronónico ni des el código a nadie.</strong></font></p><br><P align=left><Font size=8 color=black Face=Arial> Atentamente, </font></p><P align=left><Font size=8 color=black Face=Arial> El equipo de MyPaginaWeb </font></p></div><br></div></body></html>";
                         MailCorreo = myDes.cifrar(MailCorreo);
                         HTMLCorreo = myDes.cifrar(HTMLCorreo);
 
