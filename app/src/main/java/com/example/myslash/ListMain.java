@@ -41,8 +41,8 @@ public class ListMain extends AppCompatActivity {
     private List<Cuenta> list2;
     private ListView listView3;
     private List<Cuenta> list3;
-    private int []imagenUser = { R.drawable.user,R.drawable.user1,R.drawable.user2,R.drawable.user3};
-    private int []imagen = { R.drawable.editbutton,R.drawable.removebutton};
+    private int []imagenUser = { R.drawable.user,R.drawable.user1,R.drawable.user2,R.drawable.user3 };
+    private int []imagen = { R.drawable.editbutton,R.drawable.removebutton };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,12 +238,18 @@ public class ListMain extends AppCompatActivity {
                 Intent intent1 = new Intent (ListMain.this, Login.class);
                 startActivity( intent1 );
                 break;
-            case R.id.MenuNuevoId:
-                int numArchivo = getIntent().getExtras().getInt("numArchivo");
-                Intent intent2 = new Intent (ListMain.this, EditList.class);
-                intent2.putExtra("numArchivo", numArchivo);
-                intent2.putExtra("numContext", 1);
+            case R.id.MenuBreakingApi:
+                int numArchivo1 = getIntent().getExtras().getInt("numArchivo");
+                Intent intent2 = new Intent (ListMain.this, WebApi.class);
+                intent2.putExtra("numArchivo", numArchivo1);
                 startActivity( intent2 );
+                break;
+            case R.id.MenuNuevoId:
+                int numArchivo2 = getIntent().getExtras().getInt("numArchivo");
+                Intent intent3 = new Intent (ListMain.this, EditList.class);
+                intent3.putExtra("numArchivo", numArchivo2);
+                intent3.putExtra("numContext", 1);
+                startActivity( intent3 );
                 break;
             default:
                 seleccion = "sin opcion %s";

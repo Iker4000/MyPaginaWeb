@@ -32,6 +32,7 @@
     <string name="recoverPassword">Recuperar contraseña</string>
     <string name="welcome">Welcome to the Jungle</string>
     <string name="menu_nuevo">Nuevo</string>
+    <string name="menu_breaking">Breaking Bad Quotes</string>
     <string name="menu_copiar">Cerrar Sesión</string>
     <string name="list_name">Nombre de la Cuenta</string>
     <string name="list_nameHint">Escribir el Nombre</string>
@@ -43,4 +44,7 @@
     <string name="list_image3">Opcion 2</string>
     <string name="list_image4">Opcion 3</string>
     <string name="list_button">Enviar</string>
+    <string name="breaking_title">Random Breaking Bad Quotes</string>
+    <string name="breaking_refresh">Recargar</string>
+    <string name="breaking_return">Regresar</string>
 </resources>

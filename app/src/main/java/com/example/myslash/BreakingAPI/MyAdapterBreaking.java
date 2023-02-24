@@ -1,4 +1,4 @@
-package com.example.myslash.List;
+package com.example.myslash.BreakingAPI;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,19 +8,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myslash.Json.Cuenta;
 import com.example.myslash.R;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter implements Serializable {
-    private List<Cuenta> list;
+public class MyAdapterBreaking extends BaseAdapter implements Serializable {
+    private List<BreakingFrases> list;
     private Context context;
     private LayoutInflater layoutInflater;
     private int []imagenes = {R.drawable.editbutton,R.drawable.removebutton};
 
-    public MyAdapter(List<Cuenta> list, Context context) {
+    public MyAdapterBreaking(List<BreakingFrases> list, Context context) {
         this.list = list;
         this.context = context;
         if( context != null)
@@ -58,14 +57,16 @@ public class MyAdapter extends BaseAdapter implements Serializable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        TextView textView = null;
+        TextView textView1 = null;
+        TextView textView2 = null;
         ImageView imageView = null;
-        view = layoutInflater.inflate(R.layout.activity_list_view_actividad, null );
-        textView = view.findViewById(R.id.textViewId1);
+        view = layoutInflater.inflate(R.layout.activity_list_view_breaking, null );
+        textView1 = view.findViewById(R.id.textViewId1);
+        textView2 = view.findViewById(R.id.textViewId2);
         imageView = view.findViewById(R.id.imageViewLUser);
-        textView.setText(list.get(i).getNameCuenta());
-        imageView.setImageResource(list.get(i).getImage());
-
+        textView1.setText(list.get(i).getFrase());
+        textView2.setText(list.get(i).getAutor());
+        imageView.setImageResource(list.get(i).getImagen());
         return view;
     }
 }
