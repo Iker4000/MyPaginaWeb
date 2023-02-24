@@ -13,10 +13,6 @@ import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
 import com.example.myslash.MySQLite.DbInfo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-
 public class Login extends AppCompatActivity {
 
     @Override
@@ -26,8 +22,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void IniciarSesion (View v){
-        EditText userName = (EditText) findViewById(R.id.editTextISuserName);
-        EditText Password = (EditText) findViewById(R.id.editTextISPassword);
+        EditText userName = (EditText) findViewById(R.id.editTextRPpass);
+        EditText Password = (EditText) findViewById(R.id.editTextRPnewpass1);
 
         String mensaje = "";
 

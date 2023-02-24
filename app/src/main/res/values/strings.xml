@@ -47,4 +47,11 @@
     <string name="breaking_title">Random Breaking Bad Quotes</string>
     <string name="breaking_refresh">Recargar</string>
     <string name="breaking_return">Regresar</string>
+    <string name="recovery_pass">Codigo</string>
+    <string name="recovery_writepass">Ingresar Codigo Enviado</string>
+    <string name="recovery_newpass1">Nueva Contraseña</string>
+    <string name="recovery_writenewpass1">Ingresar la Nueva Contraseña</string>
+    <string name="recovery_newpass2">Comprobar Nueva Contraseña</string>
+    <string name="recovery_writenewpass2">Reingrese la Nueva Contraseña</string>
+    <string name="recovery_button">Restablecer Contraseña</string>
 </resources>

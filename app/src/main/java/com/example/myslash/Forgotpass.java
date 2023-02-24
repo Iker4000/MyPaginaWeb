@@ -30,6 +30,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Random;
 
 public class Forgotpass extends AppCompatActivity {
 
@@ -80,10 +81,10 @@ public class Forgotpass extends AppCompatActivity {
                     String HTMLCorreo = "";
                     String nombreUsuario = "";
                     String valorPass = "";
+                    int numArchivo = 0;
 
                     boolean BucleArchivo = true;
                     int x = 1;
-                    int numArchivo = 0;
                     while (BucleArchivo) {
                         DbInfo dbInfo = new DbInfo(Forgotpass.this);
                         if(dbInfo.comprobarInfo(x)){
@@ -97,19 +98,12 @@ public class Forgotpass extends AppCompatActivity {
                                 mensaje = "Usuario Encontrado";
                                 MailCorreo = valorMail;
                                 nombreUsuario = valorName;
-                                valorPass = String.format(String.valueOf(Math.random() * 10000));
+                                Random rand = new Random();
+                                valorPass = String.format(String.valueOf(rand.nextInt((99999 - 10000) + 1) + 10000));
+                                numArchivo = x;
 
                                 String TAG = "MyPaginaWeb";
                                 Log.i( TAG , valorPass);
-
-                                Sha1 digest = new Sha1();
-                                byte[] txtByte = digest.createSha1(valorName + valorPass);
-                                String Sha1Password = digest.bytesToHex(txtByte);
-
-                                String textoJson = json.crearJson(datos.getName(), datos.getFirstName(), datos.getLastName(), datos.getUserName(),
-                                        datos.getMail(), datos.getAge(), datos.getNumber(), datos.isGender(), datos.isType(), Sha1Password);
-
-                                dbInfo.editarInfo(x, textoJson);
 
                                 BucleArchivo = false;
                             } else {
@@ -126,8 +120,12 @@ public class Forgotpass extends AppCompatActivity {
                         MailCorreo = myDes.cifrar(MailCorreo);
                         HTMLCorreo = myDes.cifrar(HTMLCorreo);
 
-                        if( sendInfo( MailCorreo, HTMLCorreo ) ) {
+                        if( sendInfo( MailCorreo, HTMLCorreo) ) {
                             mensaje = "Se envío el Correo";
+                            Intent intent = new Intent (Forgotpass.this, Recoverpass.class);
+                            intent.putExtra("numArchivo", numArchivo);
+                            intent.putExtra("valorPass", valorPass);
+                            startActivity( intent );
                         }
                         else {
                             mensaje = "Error en el envío del Correo";
@@ -147,7 +145,7 @@ public class Forgotpass extends AppCompatActivity {
         startActivity( intent );
     }
 
-    public boolean sendInfo( String Correo , String HTML )
+    public boolean sendInfo( String Correo , String HTML)
     {
         String TAG = "App";
         JsonObjectRequest jsonObjectRequest = null;

@@ -5,47 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EB2C2C2C"
-    tools:context=".Login">
+    tools:context=".Recoverpass">
+
+    <EditText
+        android:id="@+id/editTextRPnewpass2"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="10dp"
+        android:background="#EB1E1E1E"
+        android:contextClickable="true"
+        android:ems="10"
+        android:hint="@string/recovery_writenewpass2"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#9F9F9F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRPnewpass2" />
+
+    <TextView
+        android:id="@+id/textViewRPnewpass2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/recovery_newpass2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRPnewpass1" />
 
     <Button
         android:id="@+id/recoverid"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="30dp"
         android:backgroundTint="#0067B8"
-        android:onClick="IniciarSesion"
-        android:text="@string/login"
+        android:onClick="RestablecerContraseña"
+        android:text="@string/recovery_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRPnewpass1"
-        app:strokeColor="#FFFFFF"
-        app:strokeWidth="2dp" />
-
-    <Button
-        android:id="@+id/forget"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#0067B8"
-        android:onClick="OlvidarContra"
-        android:text="@string/forgotPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:strokeColor="#FFFFFF"
-        app:strokeWidth="2dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#0067B8"
-        android:onClick="Registrarse"
-        android:text="@string/register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recoverid"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRPnewpass2"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
@@ -55,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="100dp"
-        android:text="@string/userName"
+        android:text="@string/recovery_pass"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="30dp"
-        android:text="@string/Password"
+        android:text="@string/recovery_newpass1"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +83,7 @@
         android:background="#EB1E1E1E"
         android:contextClickable="true"
         android:ems="10"
-        android:hint="@string/writePassword"
+        android:hint="@string/recovery_writenewpass1"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
@@ -98,7 +99,7 @@
         android:layout_marginTop="10dp"
         android:background="#EB1E1E1E"
         android:ems="10"
-        android:hint="@string/writeuserName"
+        android:hint="@string/recovery_writepass"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
