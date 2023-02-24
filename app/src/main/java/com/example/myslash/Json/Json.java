@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 
 public class Json extends AppCompatActivity{
 
-    public static String crearJson(String Name , String firstName , String lastName , String userName , String Mail , int Age , int Number , boolean Gender , boolean Type , String Password ) {
+    public static String crearJson(String Name , String firstName , String lastName , String userName , String Mail , int Age , long Number , boolean Gender , boolean Type , String Password ) {
         Info datos = new Info();
         Gson gson = new Gson();
         Des myDes = new Des();

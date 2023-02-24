@@ -43,16 +43,6 @@ public class EditList extends AppCompatActivity {
         try {
             if (numContext == 2) {
                 int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
-                /*
-                BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + "." + numArchivoCuenta + ".txt")));
-                String lineaTexto = file.readLine();
-                String completoTexto = "";
-                while(lineaTexto != null){
-                    completoTexto = completoTexto + lineaTexto;
-                    lineaTexto = file.readLine();
-                }
-                file.close();
-                 */
                 DbCuenta dbCuenta = new DbCuenta(EditList.this);
                 String completoTexto = dbCuenta.verCuenta(numArchivo, numArchivoCuenta);
 
@@ -102,15 +92,8 @@ public class EditList extends AppCompatActivity {
                         boolean BucleArchivo = true;
                         int x = 1;
                         while (BucleArchivo) {
-                            //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt");
-                            //if (Cfile.exists()) {x = x + 1;}
                             if(dbCuenta.comprobarCuenta(numArchivo, x)){x = x + 1;}
                             else {
-                                /*
-                                BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + x + ".txt", Context.MODE_PRIVATE)));
-                                fileC.write(textoJsonCuenta);
-                                fileC.close();
-                                 */
                                 dbCuenta.insertarCuenta(numArchivo, x, textoJsonCuenta);
 
                                 BucleArchivo = false;
@@ -132,11 +115,6 @@ public class EditList extends AppCompatActivity {
 
                         String textoJsonCuenta = json.crearJsonCuenta( valorNombre, valorPassword, valorImage);
 
-                        /*
-                        BufferedWriter fileC = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + numArchivo + "." + numArchivoCuenta + ".txt", Context.MODE_PRIVATE)));
-                        fileC.write(textoJsonCuenta);
-                        fileC.close();
-                         */
                         dbCuenta.editarCuenta(numArchivo, numArchivoCuenta, textoJsonCuenta);
                     }catch(Exception e){}
                 }

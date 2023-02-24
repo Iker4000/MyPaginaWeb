@@ -85,20 +85,8 @@ public class Forgotpass extends AppCompatActivity {
                     int x = 1;
                     int numArchivo = 0;
                     while (BucleArchivo) {
-                        //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
                         DbInfo dbInfo = new DbInfo(Forgotpass.this);
-                        //if(Cfile.exists()) {
                         if(dbInfo.comprobarInfo(x)){
-                            /*
-                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
-                            String lineaTexto = file.readLine();
-                            String completoTexto = "";
-                            while(lineaTexto != null){
-                                completoTexto = completoTexto + lineaTexto;
-                                lineaTexto = file.readLine();
-                            }
-                            file.close();
-                             */
                             String completoTexto = dbInfo.verInfo(x);
 
                             Info datos = json.leerJson(completoTexto);
@@ -121,11 +109,6 @@ public class Forgotpass extends AppCompatActivity {
                                 String textoJson = json.crearJson(datos.getName(), datos.getFirstName(), datos.getLastName(), datos.getUserName(),
                                         datos.getMail(), datos.getAge(), datos.getNumber(), datos.isGender(), datos.isType(), Sha1Password);
 
-                                /*
-                                BufferedWriter file2 = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + x + ".txt", Context.MODE_PRIVATE)));
-                                file2.write(textoJson);
-                                file2.close();
-                                 */
                                 dbInfo.editarInfo(x, textoJson);
 
                                 BucleArchivo = false;

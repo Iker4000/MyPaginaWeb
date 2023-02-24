@@ -30,17 +30,6 @@ public class Website extends AppCompatActivity {
             int numArchivo = getIntent().getExtras().getInt("numArchivo");
             Json json = new Json();
 
-            /*
-            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + numArchivo + ".txt")));
-            String lineaTexto = file.readLine();
-            String completoTexto = "";
-            while(lineaTexto != null){
-                completoTexto = completoTexto + lineaTexto;
-                lineaTexto = file.readLine();
-            }
-            Info datos = json.leerJson(completoTexto);
-            file.close();
-             */
             DbInfo dbInfo = new DbInfo(Website.this);
             String completoTexto = dbInfo.verInfo(numArchivo);
             Info datos = json.leerJson(completoTexto);

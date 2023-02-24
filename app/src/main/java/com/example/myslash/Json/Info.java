@@ -8,7 +8,7 @@ public class Info {
     private String userName;
     private String Mail;
     private int Age;
-    private int Number;
+    private long Number;
     private boolean Gender;
     private boolean Type;
     private String Password;
@@ -61,11 +61,11 @@ public class Info {
         Age = age;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return Number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         Number = number;
     }
 

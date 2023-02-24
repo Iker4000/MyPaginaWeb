@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -23,6 +24,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class Register extends AppCompatActivity {
+
+    private static final String TAG = "MyPaginaWeb";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class Register extends AppCompatActivity {
                 }
             }
             if(Name.length() > 22 || firstName.length() > 15 || lastName.length() > 15 || userName.length() > 20 ||
-                    TipoCorreo == false || Mail.length() > 25 || Age.length() > 2 || Number.length() != 8 || Password.length() > 30){
+                    TipoCorreo == false || Mail.length() > 25 || Age.length() > 2 || Number.length() != 10 || Password.length() > 30){
                 mensaje = "Parametro Erroneo";
                 if(Name.length() > 22){mensaje = "Nombre Muy Largo";}
                 if(firstName.length() > 15){mensaje = "Apellido Paterno Muy Largo";}
@@ -80,7 +83,7 @@ public class Register extends AppCompatActivity {
                 if(TipoCorreo == false){mensaje = "Correo Invalido, Intente con los dominios @gmail.com, @hotmail.com, @outlook.com";}
                 if(Mail.length() > 25){mensaje = "Correo Muy Largo";}
                 if(Age.length() > 2){mensaje = "Edad Invalida, Intente con una edad mas corta";}
-                if(Number.length() != 8){mensaje = "Numero Invalido, Intente con un numero de 8 digitos";}
+                if(Number.length() != 10){mensaje = "Numero Invalido, Intente con un numero de 10 digitos";}
                 if(Password.length() > 30){mensaje = "Contraseña Muy Larga";}
             }else{
                 try {
@@ -95,7 +98,7 @@ public class Register extends AppCompatActivity {
                     String ValoruserName = userName.getText().toString();
                     String ValorMail = Mail.getText().toString();
                     int ValorAge = Integer.parseInt(Age.getText().toString());
-                    int ValorNumber = Integer.parseInt(Number.getText().toString());
+                    long ValorNumber = Long.parseLong(Number.getText().toString());
                     boolean ValorGender = Gender1.isChecked();
                     boolean ValorType = Type1.isChecked();
                     String ValorPassword = Sha1Password;
@@ -107,26 +110,14 @@ public class Register extends AppCompatActivity {
                     boolean BucleArchivo = true;
                     int x = 1;
                     while (BucleArchivo) {
-                        //File Cfile = new File(getApplicationContext().getFilesDir() + "/" + "ArchivoMyPaginaWeb" + x + ".txt");
                         DbInfo dbInfo = new DbInfo(Register.this);
-                        //if(Cfile.exists()) {
                         if (dbInfo.comprobarInfo(x)) {
-                            /*
-                            BufferedReader file = new BufferedReader(new InputStreamReader(openFileInput("ArchivoMyPaginaWeb" + x + ".txt")));
-                            String lineaTexto = file.readLine();
-                            String completoTexto = "";
-                            while(lineaTexto != null){
-                                completoTexto = completoTexto + lineaTexto;
-                                lineaTexto = file.readLine();
-                            }
-                            file.close();
-                             */
                             String completoTexto = dbInfo.verInfo(x);
 
                             Info datos = json.leerJson(completoTexto);
                             String ValoruserName2 = datos.getUserName();
                             String ValorMail2 = datos.getMail();
-                            int ValorNumber2 = datos.getNumber();
+                            long ValorNumber2 = datos.getNumber();
 
                             if (ValoruserName.equals(ValoruserName2) || ValorMail.equals(ValorMail2) || ValorNumber == ValorNumber2) {
                                 if(ValorMail.equals(ValorMail2)){mensaje = "Correo Ya Registrado";}
@@ -137,26 +128,6 @@ public class Register extends AppCompatActivity {
                                 x = x + 1;
                             }
                         } else {
-                            /*
-                            BufferedWriter file = new BufferedWriter(new OutputStreamWriter(openFileOutput("ArchivoMyPaginaWeb" + x + ".txt", Context.MODE_PRIVATE)));
-                            file.write(textoJson);
-                            file.close();
-
-                            mensaje = "Usuario Registrado";
-                            Name.setText("");
-                            firstName.setText("");
-                            lastName.setText("");
-                            userName.setText("");
-                            Mail.setText("");
-                            Age.setText("");
-                            Number.setText("");
-                            Gender1.setChecked(false);
-                            Gender2.setChecked(false);
-                            Type1.setChecked(false);
-                            Type2.setChecked(false);
-                            Password.setText("");
-                            BucleArchivo = false;
-                             */
                             long status = dbInfo.insertarInfo(x, textoJson);
                             if (status > 0) {
                                 mensaje = "Usuario Registrado";
@@ -181,6 +152,7 @@ public class Register extends AppCompatActivity {
 
                 } catch (Exception e) {
                     mensaje = "Error al Hacer Registro";
+                    Log.e(TAG, " Exception: " + e.getMessage());
                 }
             }
         }
