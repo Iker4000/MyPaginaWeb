@@ -1,10 +1,13 @@
 package com.example.myslash.Json;
 
+import android.location.Location;
+
 import java.io.Serializable;
 
 public class Cuenta implements Serializable{
     private String nameCuenta;
     private String passCuenta;
+    private Location location;
     private int image;
 
     public Cuenta(){
@@ -25,6 +28,14 @@ public class Cuenta implements Serializable{
 
     public void setPassCuenta(String passCuenta) {
         this.passCuenta = passCuenta;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public int getImage() {

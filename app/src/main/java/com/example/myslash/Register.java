@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -144,6 +145,13 @@ public class Register extends AppCompatActivity {
                                 Type2.setChecked(false);
                                 Password.setText("");
                                 BucleArchivo = false;
+                                new Handler( ).postDelayed(new Runnable() {
+                                    @Override
+                                    public void run(){
+                                        Intent intent = new Intent( Register.this, Login.class);
+                                        startActivity( intent );
+                                    }
+                                } , 5000 );
                             } else {
                                 mensaje = "Error al Hacer Registro";
                             }
@@ -163,4 +171,6 @@ public class Register extends AppCompatActivity {
         Intent intent = new Intent (Register.this, Login.class);
         startActivity( intent );
     }
+
+
 }

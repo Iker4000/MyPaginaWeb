@@ -58,12 +58,18 @@ public class MyAdapter extends BaseAdapter implements Serializable {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        TextView textView = null;
+        TextView textView1 = null;
+        TextView textView2 = null;
+        TextView textView3 = null;
         ImageView imageView = null;
         view = layoutInflater.inflate(R.layout.activity_list_view_actividad, null );
-        textView = view.findViewById(R.id.textViewId1);
+        textView1 = view.findViewById(R.id.textViewId1);
+        textView2 = view.findViewById(R.id.textViewId2);
+        textView3 = view.findViewById(R.id.textViewId3);
         imageView = view.findViewById(R.id.imageViewLUser);
-        textView.setText(list.get(i).getNameCuenta());
+        textView1.setText(list.get(i).getNameCuenta());
+        textView2.setText("Lat: " + list.get(i).getLocation().getLatitude());
+        textView3.setText("Lon: " + list.get(i).getLocation().getLongitude());
         imageView.setImageResource(list.get(i).getImage());
 
         return view;

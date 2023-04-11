@@ -85,6 +85,7 @@ public class ListMain extends AppCompatActivity {
                     Cuenta cuenta3 = new Cuenta();
                     cuenta1.setPassCuenta(datos.getPassCuenta());
                     cuenta1.setNameCuenta(datos.getNameCuenta());
+                    cuenta1.setLocation(datos.getLocation());
                     cuenta1.setImage(datos.getImage());
                     cuenta2.setImage(imagen[0]);
                     cuenta3.setImage(imagen[1]);

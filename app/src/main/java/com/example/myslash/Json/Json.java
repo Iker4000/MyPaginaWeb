@@ -1,5 +1,7 @@
 package com.example.myslash.Json;
 
+import android.location.Location;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myslash.Encriptación.Des;
@@ -36,13 +38,14 @@ public class Json extends AppCompatActivity{
         return datos;
     }
 
-    public static String crearJsonCuenta(String Name , String Password , int Image) {
+    public static String crearJsonCuenta(String Name , String Password , Location location , int Image) {
         Cuenta datos = new Cuenta();
         Gson gson = new Gson();
         Des myDes = new Des();
 
         datos.setNameCuenta(Name);
         datos.setPassCuenta(Password);
+        datos.setLocation(location);
         datos.setImage(Image);
 
         String nuevojson = myDes.cifrar(gson.toJson(datos));
