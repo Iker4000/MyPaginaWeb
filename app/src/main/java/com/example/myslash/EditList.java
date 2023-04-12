@@ -1,19 +1,30 @@
 package com.example.myslash;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -27,16 +38,28 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class EditList extends AppCompatActivity {
 
     private EditText Name, Password;
-    private RadioButton Opcion1, Opcion2, Opcion3, Opcion4;
+    private RadioButton Opcion1, Opcion2, Opcion3, Opcion4, Opcion5;
     private int []imagenUser = { R.drawable.user,R.drawable.user1,R.drawable.user2,R.drawable.user3};
-    private static final int PERMISSION_REQUEST_CODE = 200;
-    private static final int REQUEST_LOCATION_PERMISSION = 1;
+
+    private ImageView ivFoto;
+    private Button btnTomarFoto, btnSeleccionarImagen;
+
+    private Uri imagenUri;
+
+    private int TOMAR_FOTO = 100;
+    private int SELEC_IMAGEN = 200;
+
+    private String CARPETA_RAIZ = "MyPaginaWebFotos";
+    private String CARPETAS_IMAGENES = "imagenes";
+    private String RUTA_IMAGEN = CARPETA_RAIZ + CARPETAS_IMAGENES;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +71,19 @@ public class EditList extends AppCompatActivity {
         Opcion2 = (RadioButton) findViewById(R.id.radioButtonEL2);
         Opcion3 = (RadioButton) findViewById(R.id.radioButtonEL3);
         Opcion4 = (RadioButton) findViewById(R.id.radioButtonEL4);
+        Opcion5 = (RadioButton) findViewById(R.id.radioButtonEL5);
+        ivFoto = findViewById(R.id.imageViewEL1);
+        btnTomarFoto = findViewById(R.id.buttonElTake);
+        btnSeleccionarImagen = findViewById(R.id.buttonElSelc);
 
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
+
+        if(ContextCompat.checkSelfPermission(EditList.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(EditList.this,
+                    new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
 
         try {
             if (numContext == 2) {
@@ -72,13 +105,62 @@ public class EditList extends AppCompatActivity {
                 if(valorAccountImage == imagenUser[3]){Opcion4.setChecked(true);}
             }
         }catch(Exception e){}
+
+        Opcion1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarBoton(1);
+            }
+        });
+
+        Opcion2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarBoton(2);
+            }
+        });
+
+        Opcion3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarBoton(3);
+            }
+        });
+
+        Opcion4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarBoton(4);
+            }
+        });
+
+        Opcion5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarBoton(5);
+            }
+        });
+
+        btnTomarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tomarFoto();
+            }
+        });
+
+        btnSeleccionarImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seleccionarImagen();
+            }
+        });
     }
 
     public void Enviar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
         if((false == Opcion1.isChecked() & false == Opcion2.isChecked() &
-                false == Opcion3.isChecked() & false == Opcion4.isChecked()) ||
+                false == Opcion3.isChecked() & false == Opcion4.isChecked() & false == Opcion5.isChecked()) ||
                 "".equals(Name.getText().toString()) || "".equals(Password.getText().toString())) {
             Toast.makeText(EditList.this, "Falta un parametro", Toast.LENGTH_SHORT).show();
         }else {
@@ -108,6 +190,9 @@ public class EditList extends AppCompatActivity {
                         }
                         if (Opcion4.isChecked()) {
                             valorImage = imagenUser[3];
+                        }
+                        if (Opcion5.isChecked()) {
+                            //metodo para guardar el tipo de imagen
                         }
 
                         String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, location, valorImage);
@@ -155,6 +240,82 @@ public class EditList extends AppCompatActivity {
             }
             return location;
         }
+    }
+
+    public void tomarFoto() {
+
+        String nombreImagen = "";
+        File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
+        boolean isCreada = fileImagen.exists();
+
+        if (isCreada == false) {
+            isCreada = fileImagen.mkdirs();
+        }
+
+        if (isCreada == true) {
+            nombreImagen = (System.currentTimeMillis() / 1000) + ".jpg";
+        }
+
+        path = Environment.getExternalStorageDirectory() + File.separator + RUTA_IMAGEN + File.separator + nombreImagen;
+        File imagen = new File(path);
+
+        Intent intent = null;
+        intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String authorities = this.getPackageName() + ".provider";
+            Uri imageUri = FileProvider.getUriForFile(this, authorities, imagen);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        } else {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        }
+
+        startActivityForResult(intent, TOMAR_FOTO);
+    }
+
+    public void seleccionarImagen() {
+        Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(galeria, SELEC_IMAGEN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        cambiarBoton(5);
+        if(resultCode == RESULT_OK && requestCode == SELEC_IMAGEN) {
+            imagenUri = data.getData();
+            try {
+                Bitmap imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), imagenUri);
+                ivFoto.setImageBitmap(imagen);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if(resultCode == RESULT_OK && requestCode == TOMAR_FOTO) {
+            MediaScannerConnection.scanFile(EditList.this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                @Override
+                public void onScanCompleted(String s, Uri uri) {
+
+                }
+            });
+
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            ivFoto.setImageBitmap(bitmap);
+        }
+
+    }
+
+    public void cambiarBoton(int i) {
+        Opcion1.setChecked(false);
+        Opcion2.setChecked(false);
+        Opcion3.setChecked(false);
+        Opcion4.setChecked(false);
+        Opcion5.setChecked(false);
+        if(i == 1){Opcion1.setChecked(true);}
+        if(i == 2){Opcion2.setChecked(true);}
+        if(i == 3){Opcion3.setChecked(true);}
+        if(i == 4){Opcion4.setChecked(true);}
+        if(i == 5){Opcion5.setChecked(true);}
     }
 
     public void Volver (View v){

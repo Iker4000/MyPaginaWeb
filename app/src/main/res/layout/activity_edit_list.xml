@@ -8,43 +8,58 @@
     tools:context=".EditList">
 
     <View
-        android:id="@+id/view7"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
-
-    <View
-        android:id="@+id/view6"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="13dp"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
+        android:id="@+id/view12"
+        android:layout_width="350dp"
+        android:layout_height="255dp"
         android:layout_marginTop="10dp"
-        android:background="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRGender" />
 
     <View
-        android:id="@+id/view5"
-        android:layout_width="200dp"
+        android:id="@+id/view7"
+        android:layout_width="175dp"
         android:layout_height="55dp"
+        android:layout_marginTop="14dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="150dp"
+        android:layout_height="125dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:background="#000000"
+        app:layout_constraintStart_toEndOf="@+id/view6"
+        app:layout_constraintTop_toBottomOf="@+id/buttonElSelc" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="13dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRGender" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
         android:layout_marginTop="12dp"
         android:background="#000000"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view12"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <TextView
@@ -135,59 +150,89 @@
 
     <RadioGroup
         android:id="@+id/radioGroupEL"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="255dp"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/view12"
+        app:layout_constraintStart_toStartOf="@+id/view12"
         app:layout_constraintTop_toBottomOf="@+id/textViewRGender">
 
-        <RadioButton
-            android:id="@+id/radioButtonEL1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/list_image1"
-            android:textColor="#FFFFFF"
-            tools:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButtonEL1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/list_image1"
+                android:textColor="#FFFFFF"
+                tools:textSize="12sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEL2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/list_image2"
+                android:textColor="#FFFFFF"
+                tools:textSize="12sp" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEL3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/list_image3"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonEL4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/list_image4"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:id="@+id/view10"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content" />
 
-        <RadioButton
-            android:id="@+id/radioButtonEL2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/list_image2"
-            android:textColor="#FFFFFF"
-            tools:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            <View
+                android:id="@+id/view11"
+                android:layout_width="50dp"
+                android:layout_height="170dp" />
 
-        <RadioButton
-            android:id="@+id/radioButtonEL3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/list_image3"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <RadioButton
-            android:id="@+id/radioButtonEL4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/list_image4"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
+            <RadioButton
+                android:id="@+id/radioButtonEL5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
 
     </RadioGroup>
 
@@ -209,8 +254,9 @@
         android:id="@+id/imageView5"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="11dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroupEL"
+        app:layout_constraintStart_toStartOf="@+id/view4"
         app:layout_constraintTop_toBottomOf="@+id/textViewRGender"
         app:srcCompat="@drawable/user" />
 
@@ -218,8 +264,9 @@
         android:id="@+id/imageView6"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="19dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroupEL"
+        app:layout_constraintStart_toStartOf="@+id/view5"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:srcCompat="@drawable/user1" />
 
@@ -227,8 +274,9 @@
         android:id="@+id/imageView7"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroupEL"
+        app:layout_constraintStart_toStartOf="@+id/view6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:srcCompat="@drawable/user2" />
 
@@ -236,9 +284,46 @@
         android:id="@+id/imageView8"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="110dp"
         android:layout_marginTop="19dp"
-        app:layout_constraintStart_toEndOf="@+id/radioGroupEL"
+        app:layout_constraintStart_toStartOf="@+id/view7"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         app:srcCompat="@drawable/user3" />
+
+    <Button
+        android:id="@+id/buttonElTake"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#000000"
+        android:text="@string/list_button_takePhoto"
+        app:layout_constraintStart_toEndOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRGender"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/buttonElSelc"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#000000"
+        android:text="@string/list_button_selectPhoto"
+        app:layout_constraintStart_toEndOf="@+id/view5"
+        app:layout_constraintTop_toBottomOf="@+id/buttonElTake"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageViewEL1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/view8"
+        app:layout_constraintTop_toTopOf="@+id/view8"
+        app:srcCompat="@drawable/user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

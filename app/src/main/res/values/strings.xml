@@ -44,6 +44,8 @@
     <string name="list_image3">Opcion 2</string>
     <string name="list_image4">Opcion 3</string>
     <string name="list_button">Enviar</string>
+    <string name="list_button_takePhoto">Tomar Foto</string>
+    <string name="list_button_selectPhoto">Selec Imagen</string>
     <string name="breaking_title">Random Breaking Bad Quotes</string>
     <string name="breaking_refresh">Recargar</string>
     <string name="breaking_return">Regresar</string>
