@@ -1,10 +1,12 @@
 package com.example.myslash.Json;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myslash.Encriptación.Des;
+import com.example.myslash.Encriptación.EncripBitMap;
 import com.google.gson.Gson;
 
 public class Json extends AppCompatActivity{
@@ -38,14 +40,25 @@ public class Json extends AppCompatActivity{
         return datos;
     }
 
-    public static String crearJsonCuenta(String Name , String Password , Location location , int Image) {
+    public static String crearJsonCuenta(String Name , String Password , Location location , boolean tipo , Bitmap bitmap , int Image) {
         Cuenta datos = new Cuenta();
         Gson gson = new Gson();
         Des myDes = new Des();
+        EncripBitMap EBM = new EncripBitMap();
+
+        String imageP;
+
+        if(tipo) {
+            imageP = EBM.cifrar(bitmap);
+        }else{
+            imageP = null;
+        }
 
         datos.setNameCuenta(Name);
         datos.setPassCuenta(Password);
         datos.setLocation(location);
+        datos.setTipo(tipo);
+        datos.setImageP(imageP);
         datos.setImage(Image);
 
         String nuevojson = myDes.cifrar(gson.toJson(datos));

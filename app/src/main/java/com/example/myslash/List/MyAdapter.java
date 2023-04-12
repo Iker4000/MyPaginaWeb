@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myslash.Encriptación.EncripBitMap;
 import com.example.myslash.Json.Cuenta;
 import com.example.myslash.R;
 
@@ -70,7 +71,12 @@ public class MyAdapter extends BaseAdapter implements Serializable {
         textView1.setText(list.get(i).getNameCuenta());
         textView2.setText("Lat: " + list.get(i).getLocation().getLatitude());
         textView3.setText("Lon: " + list.get(i).getLocation().getLongitude());
-        imageView.setImageResource(list.get(i).getImage());
+        if(list.get(i).isTipo() != true) {
+            imageView.setImageResource(list.get(i).getImage());
+        }else{
+            EncripBitMap EBM = new EncripBitMap();
+            imageView.setImageBitmap(EBM.desCifrar(list.get(i).getImageP()));
+        }
 
         return view;
     }

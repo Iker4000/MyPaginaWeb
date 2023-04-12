@@ -29,6 +29,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.myslash.Encriptación.Des;
+import com.example.myslash.Encriptación.EncripBitMap;
 import com.example.myslash.Json.Cuenta;
 import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
@@ -52,6 +53,7 @@ public class EditList extends AppCompatActivity {
     private Button btnTomarFoto, btnSeleccionarImagen;
 
     private Uri imagenUri;
+    private Bitmap imageP;
 
     private int TOMAR_FOTO = 100;
     private int SELEC_IMAGEN = 200;
@@ -76,6 +78,8 @@ public class EditList extends AppCompatActivity {
         btnTomarFoto = findViewById(R.id.buttonElTake);
         btnSeleccionarImagen = findViewById(R.id.buttonElSelc);
 
+        imageP = null;
+
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
 
@@ -92,17 +96,33 @@ public class EditList extends AppCompatActivity {
                 String completoTexto = dbCuenta.verCuenta(numArchivo, numArchivoCuenta);
 
                 Json json = new Json();
+                EncripBitMap EBM = new EncripBitMap();
                 Cuenta datos = json.leerJsonCuenta(completoTexto);
                 String valorAccountName = datos.getNameCuenta();
                 String valorAccountPassword = datos.getPassCuenta();
+                boolean valorAccountTipo = datos.isTipo();
+                imageP = EBM.desCifrar(datos.getImageP());
                 int valorAccountImage = datos.getImage();
 
                 Name.setText(valorAccountName);
                 Password.setText(valorAccountPassword);
-                if(valorAccountImage == imagenUser[0]){Opcion1.setChecked(true);}
-                if(valorAccountImage == imagenUser[1]){Opcion2.setChecked(true);}
-                if(valorAccountImage == imagenUser[2]){Opcion3.setChecked(true);}
-                if(valorAccountImage == imagenUser[3]){Opcion4.setChecked(true);}
+                if(valorAccountTipo != true) {
+                    if (valorAccountImage == imagenUser[0]) {
+                        Opcion1.setChecked(true);
+                    }
+                    if (valorAccountImage == imagenUser[1]) {
+                        Opcion2.setChecked(true);
+                    }
+                    if (valorAccountImage == imagenUser[2]) {
+                        Opcion3.setChecked(true);
+                    }
+                    if (valorAccountImage == imagenUser[3]) {
+                        Opcion4.setChecked(true);
+                    }
+                }else{
+                    Opcion5.setChecked(true);
+                    ivFoto.setImageBitmap(imageP);
+                }
             }
         }catch(Exception e){}
 
@@ -176,9 +196,11 @@ public class EditList extends AppCompatActivity {
                 try {
                     String valorNombre = Name.getText().toString();
                     String valorPassword = Password.getText().toString();
-                    Location location = obtenerUbAc(EditList.this);
-                    if (location != null) {
+                    Location valorLocation = obtenerUbAc(EditList.this);
+                    if (valorLocation != null) {
                         int valorImage = imagenUser[0];
+                        boolean valorTipo = false;
+                        Bitmap valorImageP = null;
                         if (Opcion1.isChecked()) {
                             valorImage = imagenUser[0];
                         }
@@ -192,10 +214,13 @@ public class EditList extends AppCompatActivity {
                             valorImage = imagenUser[3];
                         }
                         if (Opcion5.isChecked()) {
-                            //metodo para guardar el tipo de imagen
+                            if(imageP != null) {
+                                valorTipo = true;
+                                valorImageP = imageP;
+                            }
                         }
 
-                        String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, location, valorImage);
+                        String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, valorLocation, valorTipo, valorImageP, valorImage);
 
                         if (numContext == 1) {
                             boolean BucleArchivo = true;
@@ -217,7 +242,9 @@ public class EditList extends AppCompatActivity {
                         intent.putExtra("numArchivo", numArchivo);
                         startActivity(intent);
                     }
-                }catch(Exception e){}
+                }catch(Exception e){
+                    Toast.makeText(EditList.this, "" + e, Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -287,6 +314,7 @@ public class EditList extends AppCompatActivity {
             imagenUri = data.getData();
             try {
                 Bitmap imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), imagenUri);
+                imageP = imagen;
                 ivFoto.setImageBitmap(imagen);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -300,6 +328,7 @@ public class EditList extends AppCompatActivity {
             });
 
             Bitmap bitmap = BitmapFactory.decodeFile(path);
+            imageP = bitmap;
             ivFoto.setImageBitmap(bitmap);
         }
 

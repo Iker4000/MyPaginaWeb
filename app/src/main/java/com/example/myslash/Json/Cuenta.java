@@ -1,5 +1,6 @@
 package com.example.myslash.Json;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.io.Serializable;
@@ -8,6 +9,8 @@ public class Cuenta implements Serializable{
     private String nameCuenta;
     private String passCuenta;
     private Location location;
+    private boolean tipo;
+    private String imageP;
     private int image;
 
     public Cuenta(){
@@ -36,6 +39,22 @@ public class Cuenta implements Serializable{
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public boolean isTipo() {
+        return tipo;
+    }
+
+    public void setTipo(boolean tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getImageP() {
+        return imageP;
+    }
+
+    public void setImageP(String imageP) {
+        this.imageP = imageP;
     }
 
     public int getImage() {
