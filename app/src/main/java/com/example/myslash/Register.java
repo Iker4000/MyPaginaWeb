@@ -151,7 +151,7 @@ public class Register extends AppCompatActivity {
                                         Intent intent = new Intent( Register.this, Login.class);
                                         startActivity( intent );
                                     }
-                                } , 5000 );
+                                } , 1500 );
                             } else {
                                 mensaje = "Error al Hacer Registro";
                             }

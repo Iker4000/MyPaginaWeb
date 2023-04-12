@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -51,14 +52,6 @@ public class EditList extends AppCompatActivity {
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions( new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , 3);
-        }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_REQUEST_CODE);
-        }
-
         try {
             if (numContext == 2) {
                 int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
@@ -84,8 +77,9 @@ public class EditList extends AppCompatActivity {
     public void Enviar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
-        if(false == Opcion1.isChecked() & false == Opcion2.isChecked() &
-                false == Opcion3.isChecked() & false == Opcion4.isChecked()) {
+        if((false == Opcion1.isChecked() & false == Opcion2.isChecked() &
+                false == Opcion3.isChecked() & false == Opcion4.isChecked()) ||
+                "".equals(Name.getText().toString()) || "".equals(Password.getText().toString())) {
             Toast.makeText(EditList.this, "Falta un parametro", Toast.LENGTH_SHORT).show();
         }else {
             if(Name.length() > 22 || Password.length() > 30){
@@ -101,58 +95,64 @@ public class EditList extends AppCompatActivity {
                     String valorNombre = Name.getText().toString();
                     String valorPassword = Password.getText().toString();
                     Location location = obtenerUbAc(EditList.this);
-                    int valorImage = imagenUser[0];
-                    if (Opcion1.isChecked()) {
-                        valorImage = imagenUser[0];
-                    }
-                    if (Opcion2.isChecked()) {
-                        valorImage = imagenUser[1];
-                    }
-                    if (Opcion3.isChecked()) {
-                        valorImage = imagenUser[2];
-                    }
-                    if (Opcion4.isChecked()) {
-                        valorImage = imagenUser[3];
-                    }
+                    if (location != null) {
+                        int valorImage = imagenUser[0];
+                        if (Opcion1.isChecked()) {
+                            valorImage = imagenUser[0];
+                        }
+                        if (Opcion2.isChecked()) {
+                            valorImage = imagenUser[1];
+                        }
+                        if (Opcion3.isChecked()) {
+                            valorImage = imagenUser[2];
+                        }
+                        if (Opcion4.isChecked()) {
+                            valorImage = imagenUser[3];
+                        }
 
-                    String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, location, valorImage);
+                        String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, location, valorImage);
 
-                    if (numContext == 1) {
-                        boolean BucleArchivo = true;
-                        int x = 1;
-                        while (BucleArchivo) {
-                            if (dbCuenta.comprobarCuenta(numArchivo, x)) {
-                                x = x + 1;
-                            } else {
-                                dbCuenta.insertarCuenta(numArchivo, x, textoJsonCuenta);
-                                BucleArchivo = false;
+                        if (numContext == 1) {
+                            boolean BucleArchivo = true;
+                            int x = 1;
+                            while (BucleArchivo) {
+                                if (dbCuenta.comprobarCuenta(numArchivo, x)) {
+                                    x = x + 1;
+                                } else {
+                                    dbCuenta.insertarCuenta(numArchivo, x, textoJsonCuenta);
+                                    BucleArchivo = false;
+                                }
                             }
                         }
-                    }
-                    if (numContext == 2) {
-                        int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
-                        dbCuenta.editarCuenta(numArchivo, numArchivoCuenta, textoJsonCuenta);
+                        if (numContext == 2) {
+                            int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
+                            dbCuenta.editarCuenta(numArchivo, numArchivoCuenta, textoJsonCuenta);
+                        }
+                        Intent intent = new Intent(EditList.this, ListMain.class);
+                        intent.putExtra("numArchivo", numArchivo);
+                        startActivity(intent);
                     }
                 }catch(Exception e){}
-                Intent intent = new Intent(EditList.this, ListMain.class);
-                intent.putExtra("numArchivo", numArchivo);
-                startActivity(intent);
             }
         }
     }
 
-    public static Location obtenerUbAc(Context context) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((EditList) context,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_LOCATION_PERMISSION);
+    public Location obtenerUbAc(Context context) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions( new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , 3);
             return null;
         } else {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location == null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                    if (location == null) {
+                        location = new Location("");
+                    }
+                }
+            }
             return location;
         }
     }
