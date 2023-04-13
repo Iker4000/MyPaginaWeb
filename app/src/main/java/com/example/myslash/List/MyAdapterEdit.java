@@ -59,7 +59,7 @@ public class MyAdapterEdit extends BaseAdapter implements Serializable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView = null;
         view = layoutInflater.inflate(R.layout.activity_list_view_actividad_editar, null );
-        imageView = view.findViewById(R.id.imageViewLE1);
+        imageView = view.findViewById(R.id.imageViewLVAE1);
         imageView.setImageResource(list.get(i).getImage());
 
         return view;

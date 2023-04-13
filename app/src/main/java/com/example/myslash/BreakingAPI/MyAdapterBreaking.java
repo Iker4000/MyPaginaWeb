@@ -61,9 +61,9 @@ public class MyAdapterBreaking extends BaseAdapter implements Serializable {
         TextView textView2 = null;
         ImageView imageView = null;
         view = layoutInflater.inflate(R.layout.activity_list_view_breaking, null );
-        textView1 = view.findViewById(R.id.textViewId1);
-        textView2 = view.findViewById(R.id.textViewId2);
-        imageView = view.findViewById(R.id.imageViewLUser);
+        textView1 = view.findViewById(R.id.textViewLVB1);
+        textView2 = view.findViewById(R.id.textViewLVB2);
+        imageView = view.findViewById(R.id.imageViewLVBUser);
         textView1.setText(list.get(i).getFrase());
         textView2.setText(list.get(i).getAutor());
         imageView.setImageResource(list.get(i).getImagen());

@@ -2,7 +2,6 @@ package com.example.myslash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,13 +15,6 @@ import com.example.myslash.Encriptación.Sha1;
 import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
 import com.example.myslash.MySQLite.DbInfo;
-import com.example.myslash.MySQLite.DbMyPaginaWeb;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 public class Register extends AppCompatActivity {
 
@@ -36,15 +28,15 @@ public class Register extends AppCompatActivity {
 
     public void Registrarse (View v){
 
-        EditText Name = (EditText) findViewById(R.id.editTextELName);
-        EditText firstName = (EditText) findViewById(R.id.editTextElPassword);
+        EditText Name = (EditText) findViewById(R.id.editTextRName);
+        EditText firstName = (EditText) findViewById(R.id.editTextRfirstName);
         EditText lastName = (EditText) findViewById(R.id.editTextRlastName);
         EditText userName = (EditText) findViewById(R.id.editTextRuserName);
         EditText Mail = (EditText) findViewById(R.id.editTextRMail);
         EditText Age = (EditText) findViewById(R.id.editTextRAge);
         EditText Number = (EditText) findViewById(R.id.editTextRNumber);
-        RadioButton Gender1 = (RadioButton) findViewById(R.id.radioButtonEL1);
-        RadioButton Gender2 = (RadioButton) findViewById(R.id.radioButtonEL2);
+        RadioButton Gender1 = (RadioButton) findViewById(R.id.radioButtonRGender1);
+        RadioButton Gender2 = (RadioButton) findViewById(R.id.radioButtonRGender2);
         RadioButton Type1 = (RadioButton) findViewById(R.id.radioButtonRType1);
         RadioButton Type2 = (RadioButton) findViewById(R.id.radioButtonRType2);
         EditText Password = (EditText) findViewById(R.id.editTextRPassword);

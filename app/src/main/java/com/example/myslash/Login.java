@@ -22,8 +22,8 @@ public class Login extends AppCompatActivity {
     }
 
     public void IniciarSesion (View v){
-        EditText userName = (EditText) findViewById(R.id.editTextRPpass);
-        EditText Password = (EditText) findViewById(R.id.editTextRPnewpass1);
+        EditText userName = (EditText) findViewById(R.id.editTextLuserName);
+        EditText Password = (EditText) findViewById(R.id.editTextLPassword);
 
         String mensaje = "";
 

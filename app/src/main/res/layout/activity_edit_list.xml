@@ -2,32 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayoutEL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EB2C2C2C"
     tools:context=".EditList">
 
     <View
-        android:id="@+id/view12"
+        android:id="@+id/viewELHelper1"
         android:layout_width="350dp"
         android:layout_height="255dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRGender" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewELImage" />
 
     <View
-        android:id="@+id/view13"
+        android:id="@+id/viewELHelper2"
         android:layout_width="1dp"
         android:layout_height="50dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view12" />
+        app:layout_constraintTop_toBottomOf="@+id/viewELHelper1" />
 
     <View
-        android:id="@+id/view18"
+        android:id="@+id/viewELHelper3"
         android:layout_width="50dp"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,53 +37,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view7"
+        android:id="@+id/viewELBlack1"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/viewELHelper1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewELImage" />
+
+    <View
+        android:id="@+id/viewELBlack2"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/viewELHelper1"
+        app:layout_constraintTop_toBottomOf="@+id/viewELBlack1" />
+
+    <View
+        android:id="@+id/viewELBlack3"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="13dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="@+id/viewELHelper1"
+        app:layout_constraintTop_toBottomOf="@+id/viewELBlack2" />
+
+    <View
+        android:id="@+id/viewELBlack4"
         android:layout_width="175dp"
         android:layout_height="55dp"
         android:layout_marginTop="14dp"
         android:background="#000000"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/view6" />
+        app:layout_constraintStart_toStartOf="@+id/viewELHelper1"
+        app:layout_constraintTop_toBottomOf="@+id/viewELBlack3" />
 
     <View
-        android:id="@+id/view8"
+        android:id="@+id/viewELBlack5"
         android:layout_width="150dp"
         android:layout_height="125dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:background="#000000"
-        app:layout_constraintStart_toEndOf="@+id/view6"
+        app:layout_constraintStart_toEndOf="@+id/viewELBlack3"
         app:layout_constraintTop_toBottomOf="@+id/buttonElSelc" />
 
-    <View
-        android:id="@+id/view6"
-        android:layout_width="175dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="13dp"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="175dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="10dp"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRGender" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="175dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="12dp"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
     <TextView
-        android:id="@+id/textViewRName"
+        android:id="@+id/textViewELName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -91,42 +92,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextELName"
         app:layout_constraintStart_toStartOf="@+id/editTextELName" />
-
-    <TextView
-        android:id="@+id/textViewRfirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="@string/list_pass"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextElPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextElPassword" />
-
-    <TextView
-        android:id="@+id/textViewRGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
-        android:text="@string/list_image"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/view18"
-        app:layout_constraintStart_toStartOf="@+id/view5" />
-
-    <Button
-        android:id="@+id/loginid2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
-        android:backgroundTint="#0067B8"
-        android:onClick="Volver"
-        android:text="@string/back"
-        app:layout_constraintStart_toEndOf="@+id/view13"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
-        app:strokeColor="#FFFFFF"
-        app:strokeWidth="2dp" />
 
     <EditText
         android:id="@+id/editTextELName"
@@ -142,13 +107,24 @@
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#9F9F9F"
-        app:layout_constraintBottom_toTopOf="@+id/textViewRfirstName"
+        app:layout_constraintBottom_toTopOf="@+id/textViewELfirstName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/textViewELfirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/list_pass"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextELPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextELPassword" />
+
     <EditText
-        android:id="@+id/editTextElPassword"
+        android:id="@+id/editTextELPassword"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -161,10 +137,21 @@
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#9F9F9F"
-        app:layout_constraintBottom_toTopOf="@+id/textViewRGender"
+        app:layout_constraintBottom_toTopOf="@+id/textViewELImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textViewELImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:text="@string/list_image"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/viewELHelper3"
+        app:layout_constraintStart_toStartOf="@+id/viewELBlack2" />
 
     <RadioGroup
         android:id="@+id/radioGroupEL"
@@ -172,11 +159,12 @@
         android:layout_height="255dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/view12"
-        app:layout_constraintStart_toStartOf="@+id/view12"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRGender">
+        app:layout_constraintEnd_toEndOf="@+id/viewELHelper1"
+        app:layout_constraintStart_toStartOf="@+id/viewELHelper1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewELImage">
 
         <LinearLayout
+            android:id="@+id/LinearLayoutELrb1"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -190,7 +178,7 @@
                 tools:textSize="12sp" />
 
             <View
-                android:id="@+id/view"
+                android:id="@+id/viewELrg1"
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
@@ -203,7 +191,7 @@
                 tools:textSize="12sp" />
 
             <View
-                android:id="@+id/view2"
+                android:id="@+id/viewELrg2"
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
@@ -216,7 +204,7 @@
                 android:textSize="12sp" />
 
             <View
-                android:id="@+id/view3"
+                android:id="@+id/viewELrg3"
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
@@ -230,17 +218,18 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/view10"
+            android:id="@+id/viewELrg5"
             android:layout_width="40dp"
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/LinearLayoutELrb2"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <View
-                android:id="@+id/view11"
+                android:id="@+id/viewELrg4"
                 android:layout_width="50dp"
                 android:layout_height="170dp" />
 
@@ -254,59 +243,55 @@
 
     </RadioGroup>
 
-    <Button
-        android:id="@+id/recoverid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="#0067B8"
-        android:onClick="Enviar"
-        android:text="@string/list_button"
-        app:layout_constraintEnd_toStartOf="@+id/view13"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
-        app:strokeColor="#FFFFFF"
-        app:strokeWidth="2dp" />
-
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageViewELOp1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="11dp"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRGender"
+        app:layout_constraintStart_toStartOf="@+id/viewELBlack1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewELImage"
         app:srcCompat="@drawable/user" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageViewELOp2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="19dp"
-        app:layout_constraintStart_toStartOf="@+id/view5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/viewELBlack2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewELOp1"
         app:srcCompat="@drawable/user1" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/imageViewELOp3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintStart_toStartOf="@+id/view6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/viewELBlack3"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewELOp2"
         app:srcCompat="@drawable/user2" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imageViewELOp4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="19dp"
-        app:layout_constraintStart_toStartOf="@+id/view7"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/viewELBlack4"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewELOp3"
         app:srcCompat="@drawable/user3" />
+
+    <ImageView
+        android:id="@+id/imageViewELOp5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/viewELBlack5"
+        app:layout_constraintTop_toTopOf="@+id/viewELBlack5"
+        app:srcCompat="@drawable/user" />
 
     <Button
         android:id="@+id/buttonElTake"
@@ -316,8 +301,8 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="#000000"
         android:text="@string/list_button_takePhoto"
-        app:layout_constraintStart_toEndOf="@+id/view4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRGender"
+        app:layout_constraintStart_toEndOf="@+id/viewELBlack1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewELImage"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
@@ -329,19 +314,37 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="#000000"
         android:text="@string/list_button_selectPhoto"
-        app:layout_constraintStart_toEndOf="@+id/view5"
+        app:layout_constraintStart_toEndOf="@+id/viewELBlack2"
         app:layout_constraintTop_toBottomOf="@+id/buttonElTake"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
 
-    <ImageView
-        android:id="@+id/imageViewEL1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
+    <Button
+        android:id="@+id/buttonElSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/view8"
-        app:layout_constraintTop_toTopOf="@+id/view8"
-        app:srcCompat="@drawable/user" />
+        android:backgroundTint="#0067B8"
+        android:onClick="Enviar"
+        android:text="@string/list_button"
+        app:layout_constraintEnd_toStartOf="@+id/viewELHelper2"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/buttonElback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#0067B8"
+        android:onClick="Volver"
+        android:text="@string/back"
+        app:layout_constraintStart_toEndOf="@+id/viewELHelper2"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
+        app:strokeColor="#FFFFFF"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

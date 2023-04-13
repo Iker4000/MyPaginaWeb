@@ -3,14 +3,12 @@ package com.example.myslash;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,11 +24,6 @@ import com.example.myslash.List.MyAdapterRemove;
 import com.example.myslash.MySQLite.DbCuenta;
 import com.example.myslash.MySQLite.DbInfo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +44,9 @@ public class ListMain extends AppCompatActivity {
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numLista = getIntent().getExtras().getInt("numLista");
 
-        textView = (TextView) findViewById(R.id.textViewL1);
-        btnAnterior = (Button) findViewById(R.id.buttonL1);
-        btnSiguiente = (Button) findViewById(R.id.buttonL2);
+        textView = (TextView) findViewById(R.id.textViewLM1);
+        btnAnterior = (Button) findViewById(R.id.buttonLMAnt);
+        btnSiguiente = (Button) findViewById(R.id.buttonLMSig);
 
         Json json = new Json();
 
@@ -65,13 +58,13 @@ public class ListMain extends AppCompatActivity {
 
             textView.setText("Cuentas de " + datosU.getUserName());
 
-            listView1 = (ListView) findViewById(R.id.listViewId1);
+            listView1 = (ListView) findViewById(R.id.listViewLMContent);
             list1 = new ArrayList<Cuenta>();
 
-            listView2 = (ListView) findViewById(R.id.listViewId2);
+            listView2 = (ListView) findViewById(R.id.listViewLMEdit);
             list2 = new ArrayList<Cuenta>();
 
-            listView3 = (ListView) findViewById(R.id.listViewId3);
+            listView3 = (ListView) findViewById(R.id.listViewLMRemove);
             list3 = new ArrayList<Cuenta>();
 
             boolean BucleArchivo = true;

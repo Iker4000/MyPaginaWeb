@@ -12,9 +12,6 @@ import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
 import com.example.myslash.MySQLite.DbInfo;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class Website extends AppCompatActivity {
 
     TextView textview;
@@ -23,7 +20,7 @@ public class Website extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_website);
-        textview = findViewById(R.id.textView);
+        textview = findViewById(R.id.textViewW1);
 
         try {
 

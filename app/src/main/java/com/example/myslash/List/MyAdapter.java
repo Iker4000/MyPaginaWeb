@@ -64,10 +64,10 @@ public class MyAdapter extends BaseAdapter implements Serializable {
         TextView textView3 = null;
         ImageView imageView = null;
         view = layoutInflater.inflate(R.layout.activity_list_view_actividad, null );
-        textView1 = view.findViewById(R.id.textViewId1);
-        textView2 = view.findViewById(R.id.textViewId2);
-        textView3 = view.findViewById(R.id.textViewId3);
-        imageView = view.findViewById(R.id.imageViewLUser);
+        textView1 = view.findViewById(R.id.textViewLVA1);
+        textView2 = view.findViewById(R.id.textViewLVA2);
+        textView3 = view.findViewById(R.id.textViewLVA3);
+        imageView = view.findViewById(R.id.imageViewLVAUser);
         textView1.setText(list.get(i).getNameCuenta());
         textView2.setText("Lat: " + list.get(i).getLocation().getLatitude());
         textView3.setText("Lon: " + list.get(i).getLocation().getLongitude());

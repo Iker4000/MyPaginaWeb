@@ -59,7 +59,7 @@ public class MyAdapterRemove extends BaseAdapter implements Serializable {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView = null;
         view = layoutInflater.inflate(R.layout.activity_list_view_actividad_borrar, null );
-        imageView = view.findViewById(R.id.imageViewLB1);
+        imageView = view.findViewById(R.id.imageViewLVAB1);
         imageView.setImageResource(list.get(i).getImage());
 
         return view;

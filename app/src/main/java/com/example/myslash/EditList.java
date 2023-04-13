@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,20 +27,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.myslash.Encriptación.Des;
 import com.example.myslash.Encriptación.EncripBitMap;
 import com.example.myslash.Json.Cuenta;
-import com.example.myslash.Json.Info;
 import com.example.myslash.Json.Json;
 import com.example.myslash.MySQLite.DbCuenta;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 public class EditList extends AppCompatActivity {
 
@@ -68,13 +60,13 @@ public class EditList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_list);
         Name = (EditText) findViewById(R.id.editTextELName);
-        Password = (EditText) findViewById(R.id.editTextElPassword);
+        Password = (EditText) findViewById(R.id.editTextELPassword);
         Opcion1 = (RadioButton) findViewById(R.id.radioButtonEL1);
         Opcion2 = (RadioButton) findViewById(R.id.radioButtonEL2);
         Opcion3 = (RadioButton) findViewById(R.id.radioButtonEL3);
         Opcion4 = (RadioButton) findViewById(R.id.radioButtonEL4);
         Opcion5 = (RadioButton) findViewById(R.id.radioButtonEL5);
-        ivFoto = findViewById(R.id.imageViewEL1);
+        ivFoto = findViewById(R.id.imageViewELOp5);
         btnTomarFoto = findViewById(R.id.buttonElTake);
         btnSeleccionarImagen = findViewById(R.id.buttonElSelc);
 

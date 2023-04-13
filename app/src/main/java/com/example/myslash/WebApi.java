@@ -43,9 +43,9 @@ public class WebApi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_api);
 
-        listView = (ListView) findViewById(R.id.listViewId1);
-        buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
-        buttonReturn = (Button) findViewById(R.id.buttonReturn);
+        listView = (ListView) findViewById(R.id.listViewWA1);
+        buttonRefresh = (Button) findViewById(R.id.buttonWARefresh);
+        buttonReturn = (Button) findViewById(R.id.buttonWAReturn);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.breakingbadquotes.xyz/")
