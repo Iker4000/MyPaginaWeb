@@ -113,16 +113,20 @@ public class WebApi extends AppCompatActivity {
 
     public void Recargar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
         Intent intent = new Intent (WebApi.this, WebApi.class);
         intent.putExtra("numArchivo", numArchivo);
+        intent.putExtra("numLista", numLista);
         startActivity( intent );
 
     }
 
     public void Regresar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
         Intent intent = new Intent (WebApi.this, ListMain.class);
         intent.putExtra("numArchivo", numArchivo);
+        intent.putExtra("numLista", numLista);
         startActivity( intent );
     }
 }

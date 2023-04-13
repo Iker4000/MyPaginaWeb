@@ -179,6 +179,7 @@ public class EditList extends AppCompatActivity {
     public void Enviar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numContext = getIntent().getExtras().getInt("numContext");
+        int numLista = getIntent().getExtras().getInt("numLista");
         if((false == Opcion1.isChecked() & false == Opcion2.isChecked() &
                 false == Opcion3.isChecked() & false == Opcion4.isChecked() & false == Opcion5.isChecked()) ||
                 "".equals(Name.getText().toString()) || "".equals(Password.getText().toString())) {
@@ -230,6 +231,7 @@ public class EditList extends AppCompatActivity {
                                     x = x + 1;
                                 } else {
                                     dbCuenta.insertarCuenta(numArchivo, x, textoJsonCuenta);
+                                    while((numLista + 5) <= x){numLista += 5;}
                                     BucleArchivo = false;
                                 }
                             }
@@ -240,6 +242,7 @@ public class EditList extends AppCompatActivity {
                         }
                         Intent intent = new Intent(EditList.this, ListMain.class);
                         intent.putExtra("numArchivo", numArchivo);
+                        intent.putExtra("numLista", numLista);
                         startActivity(intent);
                     }
                 }catch(Exception e){

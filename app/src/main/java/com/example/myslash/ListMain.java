@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,14 +37,11 @@ import java.util.List;
 public class ListMain extends AppCompatActivity {
 
     private TextView textView;
-    private ListView listView1;
-    private List<Cuenta> list1;
-    private ListView listView2;
-    private List<Cuenta> list2;
-    private ListView listView3;
-    private List<Cuenta> list3;
+    private ListView listView1, listView2, listView3;
+    private List<Cuenta> list1, list2, list3;
     private int []imagenUser = { R.drawable.user,R.drawable.user1,R.drawable.user2,R.drawable.user3 };
     private int []imagen = { R.drawable.editbutton,R.drawable.removebutton };
+    private Button btnSiguiente, btnAnterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +49,17 @@ public class ListMain extends AppCompatActivity {
         setContentView(R.layout.activity_list_main);
 
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
 
         textView = (TextView) findViewById(R.id.textViewL1);
+        btnAnterior = (Button) findViewById(R.id.buttonL1);
+        btnSiguiente = (Button) findViewById(R.id.buttonL2);
 
         Json json = new Json();
 
         try {
             DbInfo dbInfo = new DbInfo(ListMain.this);
+            DbCuenta dbCuenta = new DbCuenta(ListMain.this);
             String completoTextoU = dbInfo.verInfo(numArchivo);
             Info datosU = json.leerJson(completoTextoU);
 
@@ -72,10 +75,9 @@ public class ListMain extends AppCompatActivity {
             list3 = new ArrayList<Cuenta>();
 
             boolean BucleArchivo = true;
-            int x = 1;
+            int x = numLista;
             while (BucleArchivo) {
-                DbCuenta dbCuenta = new DbCuenta(ListMain.this);
-                if(dbCuenta.comprobarCuenta(numArchivo, x)){
+                if((dbCuenta.comprobarCuenta(numArchivo, x)) && (x < (numLista + 5))){
                     String completoTexto = dbCuenta.verCuenta(numArchivo, x);
 
                     Cuenta datos = json.leerJsonCuenta(completoTexto);
@@ -101,13 +103,20 @@ public class ListMain extends AppCompatActivity {
                 }
             }
 
+            if(numLista == 1){
+                btnAnterior.setEnabled(false);
+            }
+            if (!dbCuenta.comprobarCuenta(numArchivo, (numLista + 5))){
+                btnSiguiente.setEnabled(false);
+            }
+
             MyAdapter myAdapter1 = new MyAdapter(list1, getBaseContext());
             listView1.setAdapter(myAdapter1);
             listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
                 {
-                    toast1( i );
+                    toast1(i);
                 }
             });
 
@@ -116,7 +125,7 @@ public class ListMain extends AppCompatActivity {
             listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    toast2(i);
+                    toast2( i + (numLista - 1));
                 }
             });
 
@@ -125,9 +134,30 @@ public class ListMain extends AppCompatActivity {
             listView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    toast3(i);
+                    toast3( i + (numLista - 1));
                 }
             });
+
+            btnAnterior.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent (ListMain.this, ListMain.class);
+                    intent.putExtra("numArchivo", numArchivo);
+                    intent.putExtra("numLista", numLista - 5);
+                    startActivity( intent );
+                }
+            });
+
+            btnSiguiente.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent (ListMain.this, ListMain.class);
+                    intent.putExtra("numArchivo", numArchivo);
+                    intent.putExtra("numLista", numLista + 5);
+                    startActivity( intent );
+                }
+            });
+
         }catch(Exception e){
             Toast.makeText(getBaseContext(), "Error al Cargar la Lista", Toast.LENGTH_SHORT).show();
         }
@@ -141,9 +171,11 @@ public class ListMain extends AppCompatActivity {
     private void toast2( int i )
     {
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
         Intent intent1 = new Intent (ListMain.this, EditList.class);
         intent1.putExtra("numArchivo", numArchivo);
         intent1.putExtra("numContext", 2);
+        intent1.putExtra("numLista", numLista);
         intent1.putExtra("numArchivoCuenta", (i + 1));
         startActivity( intent1 );
     }
@@ -151,11 +183,13 @@ public class ListMain extends AppCompatActivity {
     private void toast3( int i )
     {
         try {
+            DbCuenta dbCuenta = new DbCuenta(ListMain.this);
             int numArchivo = getIntent().getExtras().getInt("numArchivo");
+            int numLista = getIntent().getExtras().getInt("numLista");
+            if (numLista == (i+1) && numLista > 1 && !dbCuenta.comprobarCuenta(numArchivo, (numLista + 1))){numLista -= 5;}
             boolean BucleArchivo = true;
             int x = (i + 1);
             while (BucleArchivo) {
-                DbCuenta dbCuenta = new DbCuenta(ListMain.this);
                 if (dbCuenta.comprobarCuenta(numArchivo, x) & dbCuenta.comprobarCuenta(numArchivo, (x + 1))){
                     int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
                     String completoTexto = dbCuenta.verCuenta(numArchivo, (x + 1));
@@ -168,6 +202,7 @@ public class ListMain extends AppCompatActivity {
 
                     Intent intent = new Intent (ListMain.this, ListMain.class);
                     intent.putExtra("numArchivo", numArchivo);
+                    intent.putExtra("numLista", numLista);
                     startActivity( intent );
                     BucleArchivo = false;
                 }
@@ -196,15 +231,19 @@ public class ListMain extends AppCompatActivity {
                 break;
             case R.id.MenuBreakingApi:
                 int numArchivo1 = getIntent().getExtras().getInt("numArchivo");
+                int numLista1 = getIntent().getExtras().getInt("numLista");
                 Intent intent2 = new Intent (ListMain.this, WebApi.class);
                 intent2.putExtra("numArchivo", numArchivo1);
+                intent2.putExtra("numLista", numLista1);
                 startActivity( intent2 );
                 break;
             case R.id.MenuNuevoId:
                 int numArchivo2 = getIntent().getExtras().getInt("numArchivo");
+                int numLista2 = getIntent().getExtras().getInt("numLista");
                 Intent intent3 = new Intent (ListMain.this, EditList.class);
                 intent3.putExtra("numArchivo", numArchivo2);
                 intent3.putExtra("numContext", 1);
+                intent3.putExtra("numLista", numLista2);
                 startActivity( intent3 );
                 break;
             default:

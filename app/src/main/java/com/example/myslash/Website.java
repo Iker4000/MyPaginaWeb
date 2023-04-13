@@ -28,6 +28,7 @@ public class Website extends AppCompatActivity {
         try {
 
             int numArchivo = getIntent().getExtras().getInt("numArchivo");
+            int numLista = getIntent().getExtras().getInt("numLista");
             Json json = new Json();
 
             DbInfo dbInfo = new DbInfo(Website.this);
@@ -41,6 +42,7 @@ public class Website extends AppCompatActivity {
                 public void run(){
                     Intent intent = new Intent( Website.this, ListMain.class);
                     intent.putExtra("numArchivo", numArchivo);
+                    intent.putExtra("numLista", numLista);
                     startActivity( intent );
                 }
             } , 4000 );
