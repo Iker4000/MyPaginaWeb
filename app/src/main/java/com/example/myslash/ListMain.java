@@ -30,10 +30,10 @@ import java.util.List;
 public class ListMain extends AppCompatActivity {
 
     private TextView textView;
-    private ListView listView1, listView2, listView3;
-    private List<Cuenta> list1, list2, list3;
+    private ListView listView, listView1, listView2, listView3;
+    private List<Cuenta> list, list1, list2, list3;
     private int []imagenUser = { R.drawable.user,R.drawable.user1,R.drawable.user2,R.drawable.user3 };
-    private int []imagen = { R.drawable.editbutton,R.drawable.removebutton };
+    private int []imagen = { R.drawable.mapbutton,R.drawable.editbutton,R.drawable.removebutton };
     private Button btnSiguiente, btnAnterior;
 
     @Override
@@ -58,7 +58,10 @@ public class ListMain extends AppCompatActivity {
 
             textView.setText("Cuentas de " + datosU.getUserName());
 
-            listView1 = (ListView) findViewById(R.id.listViewLMContent);
+            listView = (ListView) findViewById(R.id.listViewLMContent);
+            list = new ArrayList<Cuenta>();
+
+            listView1 = (ListView) findViewById(R.id.listViewLMMap);
             list1 = new ArrayList<Cuenta>();
 
             listView2 = (ListView) findViewById(R.id.listViewLMEdit);
@@ -75,18 +78,21 @@ public class ListMain extends AppCompatActivity {
 
                     Cuenta datos = json.leerJsonCuenta(completoTexto);
 
+                    Cuenta cuenta = new Cuenta();
                     Cuenta cuenta1 = new Cuenta();
                     Cuenta cuenta2 = new Cuenta();
                     Cuenta cuenta3 = new Cuenta();
-                    cuenta1.setPassCuenta(datos.getPassCuenta());
-                    cuenta1.setNameCuenta(datos.getNameCuenta());
-                    cuenta1.setLocation(datos.getLocation());
-                    cuenta1.setTipo(datos.isTipo());
-                    cuenta1.setImageP(datos.getImageP());
-                    cuenta1.setImage(datos.getImage());
-                    cuenta2.setImage(imagen[0]);
-                    cuenta3.setImage(imagen[1]);
+                    cuenta.setPassCuenta(datos.getPassCuenta());
+                    cuenta.setNameCuenta(datos.getNameCuenta());
+                    cuenta.setLocation(datos.getLocation());
+                    cuenta.setTipo(datos.isTipo());
+                    cuenta.setImageP(datos.getImageP());
+                    cuenta.setImage(datos.getImage());
+                    cuenta1.setImage(imagen[0]);
+                    cuenta2.setImage(imagen[1]);
+                    cuenta3.setImage(imagen[2]);
 
+                    list.add(cuenta);
                     list1.add(cuenta1);
                     list2.add(cuenta2);
                     list3.add(cuenta3);
@@ -103,13 +109,22 @@ public class ListMain extends AppCompatActivity {
                 btnSiguiente.setEnabled(false);
             }
 
-            MyAdapter myAdapter1 = new MyAdapter(list1, getBaseContext());
-            listView1.setAdapter(myAdapter1);
-            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            MyAdapter myAdapter = new MyAdapter(list, getBaseContext());
+            listView.setAdapter(myAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
                 {
-                    toast1(i);
+                    toast(i);
+                }
+            });
+
+            MyAdapterEdit myAdapter1 = new MyAdapterEdit(list1, getBaseContext());
+            listView1.setAdapter(myAdapter1);
+            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    toast1( i + (numLista - 1));
                 }
             });
 
@@ -156,21 +171,33 @@ public class ListMain extends AppCompatActivity {
         }
     }
 
+    private void toast(int i )
+    {
+        Toast.makeText(getBaseContext(), list.get(i).getPassCuenta(), Toast.LENGTH_SHORT).show();
+    }
+
     private void toast1( int i )
     {
-        Toast.makeText(getBaseContext(), list1.get(i).getPassCuenta(), Toast.LENGTH_SHORT).show();
+        int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
+        Intent intent = new Intent (ListMain.this, EditList.class);
+        intent.putExtra("numArchivo", numArchivo);
+        intent.putExtra("numContext", 2);
+        intent.putExtra("numLista", numLista);
+        intent.putExtra("numArchivoCuenta", (i + 1));
+        startActivity(intent);
     }
 
     private void toast2( int i )
     {
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numLista = getIntent().getExtras().getInt("numLista");
-        Intent intent1 = new Intent (ListMain.this, EditList.class);
-        intent1.putExtra("numArchivo", numArchivo);
-        intent1.putExtra("numContext", 2);
-        intent1.putExtra("numLista", numLista);
-        intent1.putExtra("numArchivoCuenta", (i + 1));
-        startActivity( intent1 );
+        Intent intent = new Intent (ListMain.this, EditList.class);
+        intent.putExtra("numArchivo", numArchivo);
+        intent.putExtra("numContext", 2);
+        intent.putExtra("numLista", numLista);
+        intent.putExtra("numArchivoCuenta", (i + 1));
+        startActivity(intent);
     }
 
     private void toast3( int i )

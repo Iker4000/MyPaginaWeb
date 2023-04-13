@@ -344,8 +344,10 @@ public class EditList extends AppCompatActivity {
 
     public void Volver (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numLista = getIntent().getExtras().getInt("numLista");
         Intent intent = new Intent (EditList.this, ListMain.class);
         intent.putExtra("numArchivo", numArchivo);
+        intent.putExtra("numLista", numLista);
         startActivity( intent );
     }
 }
