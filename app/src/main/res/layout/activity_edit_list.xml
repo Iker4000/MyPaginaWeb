@@ -17,6 +17,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewRGender" />
 
     <View
+        android:id="@+id/view13"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view12" />
+
+    <View
+        android:id="@+id/view18"
+        android:layout_width="50dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
         android:id="@+id/view7"
         android:layout_width="175dp"
         android:layout_height="55dp"
@@ -66,48 +85,45 @@
         android:id="@+id/textViewRName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/list_name"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextELName"
+        app:layout_constraintStart_toStartOf="@+id/editTextELName" />
 
     <TextView
         android:id="@+id/textViewRfirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/list_pass"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextELName" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextElPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextElPassword" />
 
     <TextView
         android:id="@+id/textViewRGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="65dp"
         android:text="@string/list_image"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextElPassword" />
+        app:layout_constraintBottom_toTopOf="@+id/view18"
+        app:layout_constraintStart_toStartOf="@+id/view5" />
 
     <Button
         android:id="@+id/loginid2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:backgroundTint="#0067B8"
         android:onClick="Volver"
         android:text="@string/back"
-        app:layout_constraintStart_toEndOf="@+id/recoverid"
+        app:layout_constraintStart_toEndOf="@+id/view13"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
@@ -116,8 +132,8 @@
         android:id="@+id/editTextELName"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
         android:background="#EB1E1E1E"
         android:ems="10"
         android:hint="@string/list_nameHint"
@@ -126,16 +142,17 @@
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#9F9F9F"
+        app:layout_constraintBottom_toTopOf="@+id/textViewRfirstName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRName"
         tools:textSize="12sp" />
 
     <EditText
         android:id="@+id/editTextElPassword"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
         android:background="#EB1E1E1E"
         android:ems="10"
         android:hint="@string/list_passHint"
@@ -144,8 +161,9 @@
         android:minHeight="48dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#9F9F9F"
+        app:layout_constraintBottom_toTopOf="@+id/textViewRGender"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRfirstName"
         tools:textSize="12sp" />
 
     <RadioGroup
@@ -240,12 +258,12 @@
         android:id="@+id/recoverid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="105dp"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="#0067B8"
         android:onClick="Enviar"
         android:text="@string/list_button"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view13"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupEL"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="2dp" />
