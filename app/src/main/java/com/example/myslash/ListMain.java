@@ -180,9 +180,8 @@ public class ListMain extends AppCompatActivity {
     {
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
         int numLista = getIntent().getExtras().getInt("numLista");
-        Intent intent = new Intent (ListMain.this, EditList.class);
+        Intent intent = new Intent (ListMain.this, MapList.class);
         intent.putExtra("numArchivo", numArchivo);
-        intent.putExtra("numContext", 2);
         intent.putExtra("numLista", numLista);
         intent.putExtra("numArchivoCuenta", (i + 1));
         startActivity(intent);

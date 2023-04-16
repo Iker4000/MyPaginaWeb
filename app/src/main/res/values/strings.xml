@@ -48,6 +48,8 @@
     <string name="list_button_selectPhoto">Selec Imagen</string>
     <string name="list_button_next">Siguiente</string>
     <string name="list_button_back">Anterior</string>
+    <string name="list_map_update">Actualizar</string>
+    <string name="list_map_back">Volver</string>
     <string name="breaking_title">Random Breaking Bad Quotes</string>
     <string name="breaking_refresh">Recargar</string>
     <string name="breaking_return">Regresar</string>

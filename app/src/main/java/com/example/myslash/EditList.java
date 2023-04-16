@@ -93,7 +93,6 @@ public class EditList extends AppCompatActivity {
                 String valorAccountName = datos.getNameCuenta();
                 String valorAccountPassword = datos.getPassCuenta();
                 boolean valorAccountTipo = datos.isTipo();
-                imageP = EBM.desCifrar(datos.getImageP());
                 int valorAccountImage = datos.getImage();
 
                 Name.setText(valorAccountName);
@@ -112,6 +111,7 @@ public class EditList extends AppCompatActivity {
                         Opcion4.setChecked(true);
                     }
                 }else{
+                    imageP = EBM.desCifrar(datos.getImageP());
                     Opcion5.setChecked(true);
                     ivFoto.setImageBitmap(imageP);
                 }
