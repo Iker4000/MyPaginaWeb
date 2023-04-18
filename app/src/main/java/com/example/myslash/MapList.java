@@ -91,7 +91,10 @@ public class MapList extends AppCompatActivity {
             valorLocation.setLatitude(latitude);
             valorLocation.setLongitude(longitude);
             boolean valorTipo = datos.isTipo();
-            Bitmap valorImageP = EBM.desCifrar(datos.getImageP());
+            Bitmap valorImageP = null;
+            if(valorTipo == true) {
+                valorImageP = EBM.desCifrar(datos.getImageP());
+            }
             int valorImage = datos.getImage();
 
             String textoJsonCuenta = json.crearJsonCuenta(valorNombre, valorPassword, valorLocation, valorTipo, valorImageP, valorImage);

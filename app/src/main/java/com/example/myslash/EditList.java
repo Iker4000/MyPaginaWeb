@@ -13,12 +13,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,9 @@ import com.example.myslash.Encriptación.EncripBitMap;
 import com.example.myslash.Json.Cuenta;
 import com.example.myslash.Json.Json;
 import com.example.myslash.MySQLite.DbCuenta;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -170,6 +175,7 @@ public class EditList extends AppCompatActivity {
 
     public void Enviar (View v){
         int numArchivo = getIntent().getExtras().getInt("numArchivo");
+        int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
         int numContext = getIntent().getExtras().getInt("numContext");
         int numLista = getIntent().getExtras().getInt("numLista");
         if((false == Opcion1.isChecked() & false == Opcion2.isChecked() &
@@ -190,6 +196,11 @@ public class EditList extends AppCompatActivity {
                     String valorNombre = Name.getText().toString();
                     String valorPassword = Password.getText().toString();
                     Location valorLocation = obtenerUbAc(EditList.this);
+                    if (numContext == 2){
+                        String completoTexto = dbCuenta.verCuenta(numArchivo, numArchivoCuenta);
+                        Cuenta datos = json.leerJsonCuenta(completoTexto);
+                        valorLocation = datos.getLocation();
+                    }
                     if (valorLocation != null) {
                         int valorImage = imagenUser[0];
                         boolean valorTipo = false;
@@ -229,7 +240,6 @@ public class EditList extends AppCompatActivity {
                             }
                         }
                         if (numContext == 2) {
-                            int numArchivoCuenta = getIntent().getExtras().getInt("numArchivoCuenta");
                             dbCuenta.editarCuenta(numArchivo, numArchivoCuenta, textoJsonCuenta);
                         }
                         Intent intent = new Intent(EditList.this, ListMain.class);
@@ -245,8 +255,9 @@ public class EditList extends AppCompatActivity {
     }
 
     public Location obtenerUbAc(Context context) {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions( new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION} , 3);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 3);
             return null;
         } else {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -256,7 +267,37 @@ public class EditList extends AppCompatActivity {
                 if (location == null) {
                     location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                     if (location == null) {
-                        location = new Location("");
+                        LocationListener locationListener = new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location loc) {
+                            }
+
+                            @Override
+                            public void onStatusChanged(String provider, int status, Bundle extras) {
+                            }
+
+                            @Override
+                            public void onProviderEnabled(String provider) {
+                            }
+
+                            @Override
+                            public void onProviderDisabled(String provider) {
+                            }
+                        };
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, locationListener);
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (location == null) {
+                            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                            if (location == null) {
+                                location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                                if (location == null) {
+                                    location = new Location("");
+                                }
+                            }
+                        }
+                        locationManager.removeUpdates(locationListener);
                     }
                 }
             }
